@@ -12,11 +12,7 @@ class ColorABC(ABC):
 
         The ordering of the components within the tuple is up to the
         implementation, but it is recommended that this ordering follow the
-        conventions in Python's `colorsys` module.
-
-        See Also
-        --------
-            colorsys
+        conventions in Python's :data:`colorsys` module.
         """
         pass
 
@@ -56,23 +52,15 @@ class RgbColor(ColorABC):
         """Converts this instance to a six-digit (8-bits per color)
         hexadecimal color value.
 
-        Returns
-        -------
-        str
+        Returns:
             A six-digit hexadecimal color code.
-
-        See Also
-        --------
-            pydesigntools.color.rgb_to_hex
         """
         return rgb_to_hex(self._red, self._green, self._blue)
 
     def to_tuple(self) -> tuple[float, ...]:
         """Returns this color's components as a tuple.
 
-        Returns
-        -------
-        tuple[float, ...]
+        Returns:
             ``(red, green, blue)``, with each element a float from ``0`` to
             ``1``.
         """
@@ -82,16 +70,10 @@ class RgbColor(ColorABC):
     def from_hex(hex_code: str) -> "RgbColor":
         """Creates an RGB color from a hexadecimal color code.
 
-        The method will attempt to normalize the hexadecimal value.
+        Args:
+            hex_code: The hexadecimal color code to convert.
 
-        Parameters
-        ----------
-        hex_code : str
-            The hexadecimal color code to convert.
-
-        Returns
-        -------
-        RgbColor
+        Returns:
             The new RGB color instance
         """
         hex_safe = normalize_hex_color(hex_code)
@@ -130,9 +112,7 @@ class HsvColor(ColorABC):
     def to_tuple(self) -> tuple[float, ...]:
         """Returns this color's components as a tuple.
 
-        Returns
-        -------
-        tuple[float, ...]
+        Returns:
             ``(hue, saturation, value)``, with each element a float from ``0``
             to ``1``.
         """
@@ -143,14 +123,12 @@ class HsvColor(ColorABC):
         """Creates an HSV color from RGB values (each a float from ``0`` to
         ``1``).
 
-        Parameters
-        ----------
-        red : float
-        green : float
-        blue : float
+        Args:
+            red: The red component.
+            green: The green component.
+            blue: The blue component.
 
-        Returns
-        -------
+        Returns:
             The new HSV color instance.
         """
         return HsvColor(*colorsys.rgb_to_hsv(red, green, blue))

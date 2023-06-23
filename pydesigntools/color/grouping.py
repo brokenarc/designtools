@@ -16,17 +16,12 @@ def group_colors(hex_codes: Sequence[str], collectors: Mapping[str, Container[st
     function ensures that any given color will only appear in one group even
     if it occurs more than once in ``hex_codes``.
 
-    Parameters
-    ----------
-    hex_codes : Sequence[str]
-        The hexadecimal color codes to group.
-    collectors : Mapping[str, Container[str]
-        A mapping of group names to the container rule that determines
-        membership in the group.
+    Args:
+        hex_codes: The hexadecimal color codes to group.
+        collectors: A mapping of group names to the container rule that
+            determines membership in the group.
 
-    Returns
-    -------
-    Mapping[str, Container[str]]
+    Returns:
         A mapping of group names to a sequence of colors that were collected
         by that group's membership tests. The keys in this group will be the
         same as the keys for ``collectors``. Note that the associated sequence

@@ -9,21 +9,12 @@ class SwatchRenderer:
     The size of the SVG is based on the number of groups (affects height) and
     the size of the largest group (affects width).
 
-    See Also
-    --------
-        pydesigntools.color.group_colors
+    Args:
+        radius: The radius of the swatch circles.
+        padding: The padding around the image and between the groups.
     """
 
     def __init__(self, radius: Numeric, padding: Numeric):
-        """
-
-        Parameters
-        ----------
-        radius : Numeric
-            The radius of the swatch circles.
-        padding : Numeric
-            The padding around the image and between the groups.
-        """
         self._radius = radius
         self._padding = padding
         self._y_inc = (2 * radius) + padding
@@ -81,14 +72,10 @@ class SwatchRenderer:
         Each group is rendered as a row, and each swatch within a group is
         rendered as a circle that overlaps the previous swatch on that row.
 
-        Parameters
-        ----------
-        color_groups : Sequence[Sequence[str]]
-            The color groups to render.
+        Args:
+            color_groups: The color groups to render.
 
-        Returns
-        -------
-        str
+        Returns:
             The SVG image as a string
         """
         width, height = self._compute_viewbox(color_groups)

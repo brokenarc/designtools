@@ -7,7 +7,11 @@ GOLDEN_POWERS: tuple[float, ...] = (
     321.996894379985, 521.0019193787257, 842.9988137587108, 1364.0007331374366, 2206.9995468961474, 3571.000280033584,
     5777.999826929732, 9349.000106963316
 )
-"""The Golden Ratio raised to powers 0 to 19."""
+"""The `Golden Ratio`_ raised to powers 0 to 19.
+
+.. _Golden Ratio:
+   https://en.wikipedia.org/wiki/Golden_ratio
+"""
 
 FLORET_ANGLES: tuple[float, ...] = (
     0.0, 137.50776405003785, 275.0155281000757, 52.52329215011355, 190.0310562001514, 327.53882025018925,
@@ -15,11 +19,12 @@ FLORET_ANGLES: tuple[float, ...] = (
     210.0931686004542, 347.60093265049204, 125.10869670052989, 262.61646075056797, 40.12422480060559, 177.6319888506432,
     315.13975290068083, 92.64751695071845
 )
-"""The sequence of angles that floret petals generally grow in nature.
+"""The sequence of angles that floret petals generally grow in `nature`_.
 
 Index 0 is the first petal, index 1 is the second petal, and so on.
 
-.. [Ref] https://en.wikipedia.org/wiki/Golden_angle#Golden_angle_in_nature
+.. _nature:
+   https://en.wikipedia.org/wiki/Golden_angle#Golden_angle_in_nature
 """
 
 FIBONACCI: tuple[int, ...] = (
@@ -27,11 +32,13 @@ FIBONACCI: tuple[int, ...] = (
     46368, 75025, 121393, 196418, 317811, 514229, 832040, 1346269, 2178309, 3524578, 5702887, 9227465, 14930352,
     24157817, 39088169, 63245986, 102334155
 )
-"""The Fibonacci sequence is a sequence in which each number is the sum of the
-two preceding ones.
+"""The `Fibonacci sequence`_ is a sequence in which each number is the sum of
+the two preceding ones.
 
-.. [Ref] https://en.wikipedia.org/wiki/Fibonacci_sequence
-.. [Ref] https://oeis.org/A000045
+.. _Fibonacci sequence:
+   https://en.wikipedia.org/wiki/Fibonacci_sequence
+.. _A000045 (Fibonacci numbers):
+   https://oeis.org/A000045
 """
 
 LUCAS: tuple[int, ...] = (
@@ -39,12 +46,14 @@ LUCAS: tuple[int, ...] = (
     64079, 103682, 167761, 271443, 439204, 710647, 1149851, 1860498, 3010349, 4870847, 7881196, 12752043, 20633239,
     33385282, 54018521, 87403803
 )
-"""The Lucas sequence has the same recursive relationship as the Fibonacci
+"""The `Lucas sequence`_ has the same recursive relationship as the Fibonacci
 sequence, where each term is the sum of the two previous terms, but with
 different starting values.
 
-.. [Ref] https://en.wikipedia.org/wiki/Lucas_number
-.. [Ref] https://oeis.org/A000032
+.. _Lucas sequence:
+   https://en.wikipedia.org/wiki/Lucas_number
+.. _A000032 (Lucas numbers):
+   https://oeis.org/A000032
 """
 
 PELL: tuple[int, ...] = (
@@ -52,11 +61,13 @@ PELL: tuple[int, ...] = (
     15994428, 38613965, 93222358, 225058681, 543339720, 1311738121, 3166815962, 7645370045, 18457556052, 44560482149,
     107578520350, 259717522849
 )
-"""Pell numbers are an infinite sequence of integers that comprise the
+"""`Pell numbers`_ are an infinite sequence of integers that comprise the
 denominators of the closest rational approximations to the square root of 2.
 
-.. [Ref] https://en.wikipedia.org/wiki/Pell_number
-.. [Ref] https://oeis.org/A000129
+.. _Pell numbers:
+   https://en.wikipedia.org/wiki/Pell_number
+.. _A000129 (Pell numbers):
+   https://oeis.org/A000129
 """
 
 PELL_LUCAS: tuple[int, ...] = (
@@ -64,9 +75,12 @@ PELL_LUCAS: tuple[int, ...] = (
     18738638, 45239074, 109216786, 263672646, 636562078, 1536796802, 3710155682, 8957108166, 21624372014, 52205852194,
     126036076402, 304278004998
 )
-"""
-.. [Ref] https://en.wikipedia.org/wiki/Pell_number#Pell%E2%80%93Lucas_numbers
-.. [Ref] https://oeis.org/A002203
+"""`Pell-Lucas numbers`_.
+
+.. _Pell-Lucas numbers:
+   https://en.wikipedia.org/wiki/Pell_number#Pell%E2%80%93Lucas_numbers
+.. _A002203 (Companion Pell numbers)
+   https://oeis.org/A002203
 """
 
 METALLIC_MEAN: tuple[float, ...] = (
@@ -75,10 +89,12 @@ METALLIC_MEAN: tuple[float, ...] = (
     13.076473218982953, 14.071067811865476, 15.06637297521078, 16.06225774829855, 17.058621384311845,
     18.055385138137417, 19.0524865872714
 )
-"""The metallic means (also known as metallic ratios) may be defined as the
+"""The `metallic means`_ (also known as metallic ratios) may be defined as the
 limiting ratio of consecutive terms of sequences connected to the Fibonacci
 sequence via the invert transform.
 
-.. [Ref] https://arxiv.org/abs/1901.02619
-.. [Ref] https://en.wikipedia.org/wiki/Metallic_mean
+.. _metallic means:
+   https://en.wikipedia.org/wiki/Metallic_mean
+.. _Generalized metallic means:
+   https://arxiv.org/abs/1901.02619
 """

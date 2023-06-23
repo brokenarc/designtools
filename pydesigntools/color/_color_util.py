@@ -15,15 +15,14 @@ def normalize_hex_color(hex_color: str) -> str:
     - Remove alpha channel if present.
     - Expand 3-character codes to 6-character codes.
 
-    Parameters
-    ----------
-    hex_color : str
-        The hexadecimal color code to clean up.
+    Args:
+        hex_color: The hexadecimal color code to clean up.
 
-    Returns
-    -------
-    str
+    Returns:
         A six-digit hexadecimal color code.
+
+    Raises:
+        ValueError: If ``hex_color`` does not have 3, 4, 5, or 8 digits.
     """
     value = hex_color.lstrip("#").lower()
 
@@ -43,21 +42,14 @@ def hex_to_rgb(hex_color: str) -> tuple[float, ...]:
 
     The method will attempt to normalize the hexadecimal value.
 
-    Parameters
-    ----------
-    hex_color : str
-        The hexadecimal RGB color to convert. The method will normalize this
-        value before creating the instance.
+    Args:
+        hex_color: The hexadecimal RGB color to convert. The method will
+            normalize this value before creating the instance. See
+            :meth:`normalize_hex_color`
 
-    Returns
-    -------
-    tuple[float, ...]
+    Returns:
         The (red, green, blue) values for the color with each value expressed
         as a float from ``0`` to ``1``.
-
-    See Also
-    --------
-        pydesigntools.color.color_util.normalize_hex_color
     """
     hex_safe = normalize_hex_color(hex_color)
     return (
@@ -71,15 +63,12 @@ def rgb_to_hex(red: float, green: float, blue: float) -> str:
     """Converts RGB values to a hexadecimal color value. Each component must be
     a float from ``0`` to ``1``.
 
-    Parameters
-    ----------
-    red : float
-    green : float
-    blue : float
+    Args:
+        red: The red component.
+        green: The green component.
+        blue: The blue component.
 
-    Returns
-    -------
-    str
+    Returns:
         A six-digit hexadecimal color code.
     """
     return "{0:0>2x}{1:0>2x}{2:0>2x}".format(
@@ -91,20 +80,30 @@ def hex_to_hsv(hex_code: str) -> tuple[float, ...]:
     """Convenience method to create an HSV tuple from a hexadecimal RGB color
     code.
 
-    Parameters
-    ----------
-    hex_code : str
-        The hexadecimal RGB color to convert. The method will normalize this
-        value before creating the instance.
+    Args:
+        hex_code: The hexadecimal RGB color to convert. The method will
+            normalize this value before creating the instance. See
+            :meth:`normalize_hex_color`
 
-    Returns
-    -------
-    tuple[float, ...]
+    Returns:
         The (hue, saturation, value) values for the color with each value
         expressed as a float from ``0`` to ``1``.
-
-    See Also
-    --------
-        pydesigntools.color.color_util.normalize_hex_color
     """
     return colorsys.rgb_to_hsv(*hex_to_rgb(hex_code))
+
+
+def get_luminance(red: float, green: float, blue: float) -> float:
+    """Computes the `relative luminance`_ for the given RGB color.
+
+    Args:
+        red: The red component.
+        green: The green component.
+        blue: The blue component.
+
+    Returns:
+        The relative luminance.
+
+    .. _relative luminance:
+       https://en.wikipedia.org/wiki/Relative_luminance
+    """
+    return 0.2126 * red + 0.7152 * green + 0.0722 * blue
