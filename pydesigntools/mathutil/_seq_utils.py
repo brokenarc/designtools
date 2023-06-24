@@ -7,7 +7,9 @@ from typing import Optional
 from ._types import Numeric
 
 
-def scale_sequence(seq: Sequence[Numeric], value: Numeric, offset: Optional[int] = None) -> Sequence[Numeric, ...]:
+def scale_sequence(
+    seq: Sequence[Numeric], value: Numeric, offset: Optional[int] = None
+) -> Sequence[Numeric]:
     """Derives a numeric sequence by scaling a known sequence against a
     specific value.
 
@@ -43,7 +45,7 @@ def scale_sequence(seq: Sequence[Numeric], value: Numeric, offset: Optional[int]
     return tuple([scalar * item for item in seq])
 
 
-def ratio_sequence(seed: Numeric, ratio: Numeric, count: int) -> Sequence[Numeric, ...]:
+def ratio_sequence(seed: Numeric, ratio: Numeric, count: int) -> Sequence[Numeric]:
     """Creates a sequence based on a given seed value and ratio.
 
     Items before ``seed`` in the resulting sequence will be successively
@@ -73,7 +75,9 @@ def ratio_sequence(seed: Numeric, ratio: Numeric, count: int) -> Sequence[Numeri
     return tuple(seq)
 
 
-def round_sequence(seq: Sequence[Numeric], digits: Optional[int] = None) -> Sequence[Numeric, ...]:
+def round_sequence(
+    seq: Sequence[Numeric], digits: Optional[int] = None
+) -> Sequence[Numeric]:
     """Rounds each number in a sequence, returning a new sequence of the
     rounded results.
 
@@ -95,7 +99,7 @@ def round_sequence(seq: Sequence[Numeric], digits: Optional[int] = None) -> Sequ
     return tuple([round(value, digits) for value in seq])
 
 
-def fmod_sequence(seq: Sequence[Numeric], divisor: Numeric) -> Sequence[Numeric, ...]:
+def fmod_sequence(seq: Sequence[Numeric], divisor: Numeric) -> Sequence[Numeric]:
     """Applies ``fmod`` to each number in a sequence, returning a new tuple of
     the results.
 

@@ -1,4 +1,4 @@
-from collections.abc import Container, Mapping
+from collections.abc import Container, Mapping, Sequence
 
 from pydesigntools.mathutil import Range
 from ._color_util import hex_to_hsv
@@ -38,7 +38,7 @@ class HueCollector(Container[str]):
         return hue in self._hue_range
 
 
-def get_hue_slice_collectors(names: [str]) -> Mapping[str, Container[str]]:
+def get_hue_slice_collectors(names: Sequence[str]) -> Mapping[str, Container[str]]:
     """Generates a set of equally spaced hue collectors based on a list of
     names.
 
@@ -49,15 +49,30 @@ def get_hue_slice_collectors(names: [str]) -> Mapping[str, Container[str]]:
         The newly created hue collectors.
     """
     slices = len(names)
-    return {name: HueCollector(index / slices, (index + 1) / slices) for index, name in enumerate(names)}
+    return {
+        name: HueCollector(index / slices, (index + 1) / slices)
+        for index, name in enumerate(names)
+    }
 
 
 def get_12_hue_collectors() -> Mapping[str, Container[str]]:
     """Creates a set of hue collectors that divides the hue circle into 12
     equal slices.
     """
-    names = ("01 red", "02 orange", "03 yellow", "04 yellow-green", "05 green", "06 blue-green", "07 cyan", "08 blue",
-             "09 indigo", "10 violet", "11 purple", "12 pink")
+    names = (
+        "01 red",
+        "02 orange",
+        "03 yellow",
+        "04 yellow-green",
+        "05 green",
+        "06 blue-green",
+        "07 cyan",
+        "08 blue",
+        "09 indigo",
+        "10 violet",
+        "11 purple",
+        "12 pink",
+    )
 
     return get_hue_slice_collectors(names)
 
@@ -69,9 +84,31 @@ def get_martian_color_collectors() -> Mapping[str, Container[str]]:
     .. _Warren Mars' color wheel:
         https://warrenmars.com/visual_art/theory/colour_wheel/colour_wheel.htm
     """
-    names = ("01 red", "02 orange", "03 turmeric", "04 yellow cheese", "05 yellow", "06 green grape",
-             "07 chartreuse", "08 green pea", "09 green", "10 clover", "11 emerald", "12 malachite",
-             "13 cyan", "14 turquoise", "15 azure", "16 royal blue", "17 blue", "18 dioxazine",
-             "19 violet", "20 aniline", "21 magenta", "22 pink", "23 prickly pear", "24 red plum")
+    names = (
+        "01 red",
+        "02 orange",
+        "03 turmeric",
+        "04 yellow cheese",
+        "05 yellow",
+        "06 green grape",
+        "07 chartreuse",
+        "08 green pea",
+        "09 green",
+        "10 clover",
+        "11 emerald",
+        "12 malachite",
+        "13 cyan",
+        "14 turquoise",
+        "15 azure",
+        "16 royal blue",
+        "17 blue",
+        "18 dioxazine",
+        "19 violet",
+        "20 aniline",
+        "21 magenta",
+        "22 pink",
+        "23 prickly pear",
+        "24 red plum",
+    )
 
     return get_hue_slice_collectors(names)

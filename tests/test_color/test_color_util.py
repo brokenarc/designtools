@@ -10,7 +10,7 @@ class ColorUtilTest(unittest.TestCase):
         "Ab1": "aabb11",
         "#FFF": "ffffff",
         "#1234": "112233",
-        "12345678": "123456"
+        "12345678": "123456",
     }
     """Maps hexadecimal codes to their expected normalization."""
 
@@ -26,7 +26,7 @@ class ColorUtilTest(unittest.TestCase):
     """Maps hexadecimal codes to their expected RGB tuples."""
 
     def test_normalize_hex_color(self):
-        for (test, expect) in self.HEX_TO_NORMAL.items():
+        for test, expect in self.HEX_TO_NORMAL.items():
             with self.subTest(f"{test} -> {expect}"):
                 result = color.normalize_hex_color(test)
                 self.assertEqual(result, expect)
@@ -38,24 +38,36 @@ class ColorUtilTest(unittest.TestCase):
                     color.normalize_hex_color(test)
 
     def test_hex_to_rgb(self):
-        for (test, expect) in self.HEX_TO_RGB.items():
+        for test, expect in self.HEX_TO_RGB.items():
             with self.subTest(f"{test} -> {expect}"):
                 result = color.hex_to_rgb(test)
                 self.assertEqual(result, expect)
 
     def test_hex_to_hsv(self):
-        for (test, rgb) in self.HEX_TO_RGB.items():
+        for test, rgb in self.HEX_TO_RGB.items():
             with self.subTest(f"{test} -> {rgb}"):
                 expect = colorsys.rgb_to_hsv(*rgb)
                 result = color.hex_to_hsv(test)
                 self.assertEqual(result, expect)
 
     def test_rgb_to_hex(self):
-        for (hex_code, rgb) in self.HEX_TO_RGB.items():
+        for hex_code, rgb in self.HEX_TO_RGB.items():
             with self.subTest(f"{hex_code} -> {rgb}"):
                 expect = color.normalize_hex_color(hex_code)
                 test = color.rgb_to_hex(*rgb)
                 self.assertEqual(test, expect)
+
+    def test_get_luminance(self):
+        data = (
+            ((1.0, 1.0, 1.0), 1.0),
+            ((0.5, 0.25, 1.0), 0.3573),
+            ((1.0, 0.5, 0.5), 0.6063000000000001),
+            ((0.0, 0.0, 0.0), 0.0),
+        )
+        for rgb, expect in data:
+            with self.subTest(rgb):
+                actual = color.get_luminance(*rgb)
+                self.assertEqual(actual, expect)
 
 
 if __name__ == "__main__":

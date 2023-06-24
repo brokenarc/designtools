@@ -7,7 +7,6 @@ from pydesigntools.color.sorters import saturation_key
 
 
 class SaturationKeyTest(unittest.TestCase):
-
     TEST_HSV = (
         (0.25, 0.25, 0.4),
         (0.63, 0.33, 0.55),
@@ -15,7 +14,7 @@ class SaturationKeyTest(unittest.TestCase):
         (0.0, 0.5, 1.0),
         (0.75, 0.75, 0.34),
         (0.77, 0.8, 0.25),
-        (0.44, 1.0, 0.75)
+        (0.44, 1.0, 0.75),
     )
     """Set of HSV colors sorted by saturation."""
 
@@ -29,5 +28,5 @@ class SaturationKeyTest(unittest.TestCase):
         self.assertListEqual(self.data, result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

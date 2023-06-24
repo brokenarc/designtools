@@ -1,11 +1,9 @@
 """Provides a range that can handle floating point values.
 """
-from collections.abc import Container
-
 from ._types import Numeric
 
 
-class Range(Container[Numeric]):
+class Range:
     """Provides a simple representation of a range that can test for a number
     value on that range.
 
@@ -24,6 +22,7 @@ class Range(Container[Numeric]):
     Raises:
         ValueError: If ``min_value`` is not less than ``max_value``
     """
+
     __slots__ = ("_min", "_max", "_min_inclusive", "_max_inclusive")
 
     def __init__(
@@ -33,7 +32,6 @@ class Range(Container[Numeric]):
         min_inclusive: bool = True,
         max_inclusive: bool = False,
     ):
-
         self._min = min_value
         self._max = max_value
 
@@ -62,7 +60,7 @@ class Range(Container[Numeric]):
     @property
     def max_inclusive(self) -> bool:
         """Whether the maximum value will be included when testing if a value
-           is present on the range."""
+        is present on the range."""
         return self._max_inclusive
 
     def __contains__(self, value: Numeric) -> bool:
@@ -80,7 +78,9 @@ class Range(Container[Numeric]):
         return upper and lower
 
     def __repr__(self) -> str:
-        return f"Range({self.min}, {self.max}, {self.min_inclusive}, {self.max_inclusive})"
+        return (
+            f"Range({self.min}, {self.max}, {self.min_inclusive}, {self.max_inclusive})"
+        )
 
     def __str__(self) -> str:
         lower = "[" if self.min_inclusive else "("

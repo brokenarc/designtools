@@ -10,6 +10,7 @@ Notes
 
 import re
 from argparse import ArgumentParser
+from collections.abc import Sequence
 from pathlib import Path
 
 from pydesigntools.color import group_colors
@@ -37,8 +38,7 @@ def __get_args():
     )
 
     parser.add_argument(
-        "in_file", action="store",
-        help="The text file to extract color codes from."
+        "in_file", action="store", help="The text file to extract color codes from."
     )
 
     parser.add_argument(
@@ -51,7 +51,7 @@ def __get_args():
     return parser.parse_args()
 
 
-def __parse_file(filename: str) -> set[str]:
+def __parse_file(filename: str) -> Sequence[str]:
     """Extracts the colors from a text file.
 
     Currently only supports hexadecimal color codes.
@@ -64,16 +64,17 @@ def __parse_file(filename: str) -> set[str]:
                 [color.lower() for color in re.findall(HEX_COLOR, line)]
             )
 
-    return colors
+    return tuple(colors)
 
 
-def __process_colors(colors: [str]):
+def __process_colors(colors: Sequence[str]):
     groups = group_colors(colors, get_12_hue_collectors())
 
     # Sort each group and filter out any empty groups
     return [
         sorted(groups[key], key=hlv_step_sort_key, reverse=True)
-        for key in sorted(groups.keys()) if len(groups[key]) > 0
+        for key in sorted(groups.keys())
+        if len(groups[key]) > 0
     ]
 
 
@@ -93,7 +94,11 @@ def extract_swatches(in_file: str, out_file: str):
 def main():
     args = __get_args()
     in_path = Path(args.in_file).absolute()
-    out_path = args.out_file if args.out_file else str(in_path.with_name(OUTFILE.format(in_path.stem)).absolute())
+    out_path = (
+        args.out_file
+        if args.out_file
+        else str(in_path.with_name(OUTFILE.format(in_path.stem)).absolute())
+    )
 
     extract_swatches(str(in_path), out_path)
 

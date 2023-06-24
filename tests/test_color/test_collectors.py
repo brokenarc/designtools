@@ -12,16 +12,16 @@ class HueCollectorTest(unittest.TestCase):
             "111111": False,
             "ffffff": False,
             "00ffff": True,
-            "0000ff": True
+            "0000ff": True,
         }
     }
 
     def test_hue_collector(self):
-        for (r, data) in self.DATA.items():
+        for r, data in self.DATA.items():
             c = HueCollector(*r)
 
             with self.subTest(f"{c}"):
-                for (test, expect) in data.items():
+                for test, expect in data.items():
                     with self.subTest(f"{test} in {c} is {expect}"):
                         self.assertEqual(test in c, expect)
 

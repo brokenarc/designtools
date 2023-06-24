@@ -24,8 +24,8 @@ class ColorABC(ABC):
 
 
 class RgbColor(ColorABC):
-    """Models an RGB color with supporting utilities.
-    """
+    """Models an RGB color with supporting utilities."""
+
     __slots__ = ("_red", "_green", "_blue")
 
     def __init__(self, red: float, green: float, blue: float):
@@ -78,15 +78,15 @@ class RgbColor(ColorABC):
         """
         hex_safe = normalize_hex_color(hex_code)
         return RgbColor(
-            int(hex_safe[0: 2], 16) / 255,
-            int(hex_safe[2: 4], 16) / 255,
-            int(hex_safe[4: 6], 16) / 255
+            int(hex_safe[0:2], 16) / 255,
+            int(hex_safe[2:4], 16) / 255,
+            int(hex_safe[4:6], 16) / 255,
         )
 
 
 class HsvColor(ColorABC):
-    """Models an HSV color with supporting utilities.
-    """
+    """Models an HSV color with supporting utilities."""
+
     __slots__ = ("_hue", "_saturation", "_value")
 
     def __init__(self, hue: float, saturation: float, value: float):

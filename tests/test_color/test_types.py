@@ -3,7 +3,7 @@ import unittest
 from pydesigntools.color import HsvColor, RgbColor, normalize_hex_color
 
 
-class RgbColorTestCase(unittest.TestCase):
+class RgbColorTest(unittest.TestCase):
     HEX_TO_RGB = {
         "#fff": (1.0, 1.0, 1.0),
         "000000": (0.0, 0.0, 0.0),
@@ -13,7 +13,7 @@ class RgbColorTestCase(unittest.TestCase):
     """Maps hexadecimal codes to their expected RGB tuples."""
 
     def test_to_hex(self):
-        for (hex_code, rgb) in self.HEX_TO_RGB.items():
+        for hex_code, rgb in self.HEX_TO_RGB.items():
             with self.subTest(f"{rgb} -> {hex_code}"):
                 result = RgbColor(*rgb).to_hex()
                 self.assertEqual(normalize_hex_color(hex_code), result)
@@ -31,13 +31,13 @@ class RgbColorTestCase(unittest.TestCase):
                 self.assertTupleEqual(rgb, tuple(result))
 
     def test_from_hex(self):
-        for (hex_code, rgb) in self.HEX_TO_RGB.items():
+        for hex_code, rgb in self.HEX_TO_RGB.items():
             with self.subTest(f"{hex_code} -> {rgb}"):
                 result = RgbColor.from_hex(hex_code)
                 self.assertTupleEqual(rgb, result.to_tuple())
 
 
-class HsvColorTestCase(unittest.TestCase):
+class HsvColorTest(unittest.TestCase):
     RGB_TO_HSV = {
         (0, 0, 0): (0, 0, 0),
         (1, 1, 1): (0, 0, 1),
@@ -58,11 +58,11 @@ class HsvColorTestCase(unittest.TestCase):
                 self.assertTupleEqual(hsv, tuple(result))
 
     def test_from_rgb(self):
-        for (rgb, hsv) in self.RGB_TO_HSV.items():
+        for rgb, hsv in self.RGB_TO_HSV.items():
             with self.subTest(f"{rgb} -> {hsv}"):
                 test = HsvColor.from_rgb(*rgb)
                 self.assertTupleEqual(hsv, test.to_tuple())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

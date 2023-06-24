@@ -21,22 +21,25 @@ class SwatchRenderer:
         self._x_inc = radius
 
     @staticmethod
-    def _circle(cx: Numeric, cy: Numeric, r: Numeric, stroke: str = "none", fill: str = "none"):
+    def _circle(
+        cx: Numeric, cy: Numeric, r: Numeric, stroke: str = "none", fill: str = "none"
+    ):
         return f'<circle cx="{cx}" cy="{cy}" r="{r}" stroke="{stroke}" fill="{fill}" />'
 
     @staticmethod
-    def _group(items: [str]):
+    def _group(items: Sequence[str]):
         return f'<g>{"".join(items)}</g>'
 
     @staticmethod
     def _svg(view_width: Numeric, view_height: Numeric, body: str):
-        return (f'<svg viewBox="0 0 {view_width} {view_height}"'
-                f' xmlns="http://www.w3.org/2000/svg">'
-                f'{body}'
-                f'</svg>'
-                )
+        return (
+            f'<svg viewBox="0 0 {view_width} {view_height}"'
+            f' xmlns="http://www.w3.org/2000/svg">'
+            f"{body}"
+            f"</svg>"
+        )
 
-    def _render_group_row(self, color_group: Sequence[str], cy: int) -> str:
+    def _render_group_row(self, color_group: Sequence[str], cy: Numeric) -> str:
         cx = self._padding + self._radius
         c = []
 
@@ -57,7 +60,9 @@ class SwatchRenderer:
 
         return "".join(rows)
 
-    def _compute_viewbox(self, color_groups: Sequence[Sequence[str]]) -> tuple[Numeric, Numeric]:
+    def _compute_viewbox(
+        self, color_groups: Sequence[Sequence[str]]
+    ) -> tuple[Numeric, Numeric]:
         row_count = len(color_groups)
         col_count = max(len(group) for group in color_groups)
 

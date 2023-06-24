@@ -1,11 +1,19 @@
 """Provides tools for collecting colors into groups.
 """
-from collections.abc import Container, Mapping, MutableMapping, MutableSequence, Sequence
+from collections.abc import (
+    Container,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    Sequence,
+)
 
 from ._color_util import normalize_hex_color
 
 
-def group_colors(hex_codes: Sequence[str], collectors: Mapping[str, Container[str]]) -> Mapping[str, Sequence[str]]:
+def group_colors(
+    hex_codes: Sequence[str], collectors: Mapping[str, Container[str]]
+) -> Mapping[str, Sequence[str]]:
     """Organizes a list of colors into groups according to a given set of
     container membership tests.
 
@@ -32,7 +40,7 @@ def group_colors(hex_codes: Sequence[str], collectors: Mapping[str, Container[st
     colors = set([normalize_hex_color(x) for x in hex_codes])
 
     for color in colors:
-        for (key, container) in collectors.items():
+        for key, container in collectors.items():
             if key not in groupings:
                 groupings[key] = []
 

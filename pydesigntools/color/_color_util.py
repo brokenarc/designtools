@@ -2,9 +2,6 @@
 """
 import colorsys
 
-CACHE_SIZE = 64
-"""The number of color conversions to cache."""
-
 
 def normalize_hex_color(hex_color: str) -> str:
     """Normalizes a hexadecimal color code by doing the following:
@@ -53,9 +50,9 @@ def hex_to_rgb(hex_color: str) -> tuple[float, ...]:
     """
     hex_safe = normalize_hex_color(hex_color)
     return (
-        int(hex_safe[0: 2], 16) / 255,
-        int(hex_safe[2: 4], 16) / 255,
-        int(hex_safe[4: 6], 16) / 255
+        int(hex_safe[0:2], 16) / 255,
+        int(hex_safe[2:4], 16) / 255,
+        int(hex_safe[4:6], 16) / 255,
     )
 
 
