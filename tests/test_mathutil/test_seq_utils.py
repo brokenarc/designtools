@@ -23,6 +23,7 @@ class ScaleSequenceTest(unittest.TestCase):
                     0.83333333333333326,
                 ),
             ),
+            (((0, 1, 2, 3, 4), 100, 0), (0, 1, 2, 3, 4)),
         )
 
         for params, expect in data:

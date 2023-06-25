@@ -17,6 +17,9 @@ def scale_sequence(
     ``offset`` in the returned sequence is equal to ``value``. All other
     indexes are scaled according to this scaling factor.
 
+    If the sequence's value at the given index is ``0``, a scaling factor of
+    ``1`` will be used.
+
     Example:
         >>> scale_sequence((1, 2, 3, 4, 5), 6, 2)
         (2, 4, 6, 8, 10)
@@ -40,7 +43,7 @@ def scale_sequence(
     if index not in range(size):
         raise ValueError("Give offset must be within the given sequence.")
 
-    scalar = value / seq[index]
+    scalar = value / seq[index] if seq[index] is not 0 else 1
 
     return tuple([scalar * item for item in seq])
 
@@ -63,7 +66,7 @@ def ratio_sequence(seed: Numeric, ratio: Numeric, count: int) -> Sequence[Numeri
             division) or its successor (via multiplication).
         count: The number of items to be created before and after ``seed`` in
             the returned sequence. The length of the returned sequence will
-            always be ``2 * items + 1``.
+            always be ``2 * count + 1``.
 
     Returns:
         The new scaled sequence.
