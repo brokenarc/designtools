@@ -1,6 +1,6 @@
 import unittest
 
-from pydesigntools.color import group_colors, hex_to_rgb
+from designtools.color import group_colors, hex_to_rgb
 
 
 class RgbGrouper:

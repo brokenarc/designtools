@@ -1,7 +1,7 @@
 import colorsys
 import unittest
 
-from pydesigntools import color
+from designtools import color
 
 
 class ColorUtilTest(unittest.TestCase):

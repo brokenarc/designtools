@@ -1,6 +1,6 @@
 import unittest
 
-from pydesigntools.color.collectors import HueCollector
+from designtools.color.collectors import HueCollector
 
 
 class HueCollectorTest(unittest.TestCase):

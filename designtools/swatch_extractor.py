@@ -13,10 +13,10 @@ from argparse import ArgumentParser
 from collections.abc import Sequence
 from pathlib import Path
 
-from pydesigntools.color import group_colors
-from pydesigntools.color.collectors import get_12_hue_collectors
-from pydesigntools.color.sorters import hlv_step_sort_key
-from pydesigntools.graphics import SwatchRenderer
+from designtools.color import group_colors
+from designtools.color.collectors import get_12_hue_collectors
+from designtools.color.sorters import hlv_step_sort_key
+from designtools.graphics import SwatchRenderer
 
 HEX_COLOR = re.compile(r"(#[0-9a-f]{6}|#[0-9a-f]{3})", re.I)
 """Matches RGB hexadecimal colors, ignoring alpha."""

@@ -1,6 +1,6 @@
 import unittest
 
-from pydesigntools.mathutil import (
+from designtools.mathutil import (
     fmod_sequence,
     ratio_sequence,
     round_sequence,

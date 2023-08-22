@@ -43,7 +43,7 @@ def scale_sequence(
     if index not in range(size):
         raise ValueError("Give offset must be within the given sequence.")
 
-    scalar = value / seq[index] if seq[index] is not 0 else 1
+    scalar = value / seq[index] if seq[index] != 0 else 1
 
     return tuple([scalar * item for item in seq])
 

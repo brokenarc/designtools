@@ -1,6 +1,6 @@
 import unittest
 
-from pydesigntools.color import HsvColor, RgbColor, normalize_hex_color
+from designtools.color import HsvColor, RgbColor, normalize_hex_color
 
 
 class RgbColorTest(unittest.TestCase):

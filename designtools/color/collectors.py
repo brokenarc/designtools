@@ -1,6 +1,6 @@
 from collections.abc import Container, Mapping, Sequence
 
-from pydesigntools.mathutil import Range
+from designtools.mathutil import Range
 from ._color_util import hex_to_hsv
 
 

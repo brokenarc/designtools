@@ -6,7 +6,7 @@ import pathlib
 from typing import Optional
 
 
-from pydesigntools.mathutil import (
+from designtools.mathutil import (
     FIBONACCI,
     GOLDEN_POWERS,
     LUCAS,
@@ -14,7 +14,7 @@ from pydesigntools.mathutil import (
     PELL,
     PELL_LUCAS,
 )
-from pydesigntools.mathutil import Numeric, scale_sequence
+from designtools.mathutil import Numeric, scale_sequence
 
 SEQUENCES = {
     "Fibonacci": FIBONACCI,

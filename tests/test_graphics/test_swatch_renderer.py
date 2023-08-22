@@ -1,6 +1,6 @@
 import unittest
 
-from pydesigntools.graphics import SwatchRenderer
+from designtools.graphics import SwatchRenderer
 
 
 class SwatchRendererTest(unittest.TestCase):

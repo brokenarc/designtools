@@ -1,6 +1,6 @@
 import colorsys
 import math
-from pydesigntools.color._color_util import hex_to_hsv, hex_to_rgb, get_luminance
+from designtools.color._color_util import hex_to_hsv, hex_to_rgb, get_luminance
 
 
 def saturation_key(hex_color: str) -> float:

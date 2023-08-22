@@ -2,8 +2,8 @@ import unittest
 from colorsys import hsv_to_rgb
 from random import shuffle
 
-from pydesigntools.color import rgb_to_hex
-from pydesigntools.color.sorters import saturation_key
+from designtools.color import rgb_to_hex
+from designtools.color.sorters import saturation_key
 
 
 class SaturationKeyTest(unittest.TestCase):

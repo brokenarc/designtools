@@ -6,13 +6,13 @@ import pathlib
 from typing import Optional
 
 
-from pydesigntools.mathutil import (
+from designtools.mathutil import (
     GOLDEN_RATIO,
     SUPERGOLDEN_RATIO,
     SILVER_RATIO,
     PLASTIC_NUMBER,
 )
-from pydesigntools.mathutil import Numeric, ratio_sequence
+from designtools.mathutil import Numeric, ratio_sequence
 
 RATIOS = {
     "Golden Ratio": GOLDEN_RATIO,

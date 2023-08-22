@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 
-from pydesigntools.mathutil import Numeric
+from designtools.mathutil import Numeric
 
 
 class SwatchRenderer:

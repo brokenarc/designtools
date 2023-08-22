@@ -1,6 +1,6 @@
 import unittest
 
-from pydesigntools import mathutil
+from designtools import mathutil
 
 # Range test data
 # (params, include, repr, str)
