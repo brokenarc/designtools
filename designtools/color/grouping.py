@@ -1,18 +1,24 @@
 """Provides tools for collecting colors into groups.
 """
 from collections.abc import (
+    Callable,
     Container,
     Mapping,
     MutableMapping,
     MutableSequence,
     Sequence,
 )
+from typing import TypeVar
 
 from ._color_util import normalize_hex_color
 
+T = TypeVar("T")
+
 
 def group_colors(
-    hex_codes: Sequence[str], collectors: Mapping[str, Container[str]]
+    hex_codes: Sequence[str],
+    collectors: Mapping[str, Container[T]],
+    converter: Callable[[str], T] | None = None,
 ) -> Mapping[str, Sequence[str]]:
     """Organizes a list of colors into groups according to a given set of
     container membership tests.
@@ -28,6 +34,9 @@ def group_colors(
         hex_codes: The hexadecimal color codes to group.
         collectors: A mapping of group names to the container rule that
             determines membership in the group.
+        converter: A function that will convert a hexadecimal code into a value
+            that ``collectors`` can recognize. This may be ``None`` (default)
+            if the collectors accept hexadecimal codes directly.
 
     Returns:
         A mapping of group names to a sequence of colors that were collected
@@ -44,7 +53,9 @@ def group_colors(
             if key not in groupings:
                 groupings[key] = []
 
-            if color in container:
+            converted = converter(color) if converter else color
+
+            if converted in container:
                 groupings[key].append(color)
                 break
 

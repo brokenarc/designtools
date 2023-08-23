@@ -5,5 +5,4 @@ from ._color_util import (
     normalize_hex_color,
     rgb_to_hex,
 )
-from ._types import ColorABC, HsvColor, RgbColor
 from .grouping import group_colors

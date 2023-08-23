@@ -30,20 +30,36 @@ class HsvCollector(Container[str]):
     def __repr__(self):
         return f"""HsvCollector("{self._component}", {self._range.min}, {self._range.max})"""
 
-    def __contains__(self, hex_code: object) -> bool:
-        """Checks if a color matches the criteria for this collector.
+    def __contains__(self, hsv: object) -> bool:
+        """Checks if a HSV color matches the criteria for this collector."""
 
-        Args:
-            hex_code: The hexadecimal color code to check.
-
-        Returns:
-            ``True`` if the color matches this collector instance.
-        """
-        hsv = hex_to_hsv(str(hex_code))
         return hsv[self._component] in self._range
 
 
-def get_hue_slice_collectors(names: Sequence[str]) -> Mapping[str, Container[str]]:
+class ContainerChain(Container[str]):
+    """Tests for membership in a sequence of containers.
+
+    Args:
+        *containers: the containers to chain together.
+    """
+
+    __slots__ = "_containers"
+
+    def __init__(self, *containers: Sequence[Container[str]]):
+        self._containers = containers
+
+    def __repr__(self):
+        chain = ", ".join([repr(c) for c in self._containers])
+        return f"ContainerChain({chain})"
+
+    def __contains__(self, o: object) -> bool:
+        """Returns ``True`` if the given object is contained by all of the
+        containers in this chain.
+        """
+        return all(o in c for c in self._containers)
+
+
+def segment_hues(names: Sequence[str]) -> Mapping[str, Container[str]]:
     """Generates a set of equally spaced hue collectors with the given names,
     assigned in the order that the names are given.
 
@@ -60,60 +76,60 @@ def get_hue_slice_collectors(names: Sequence[str]) -> Mapping[str, Container[str
     }
 
 
-def get_12_hue_collectors() -> Mapping[str, Container[str]]:
-    """Creates a set of hue collectors that divides the hue circle into 12
-    equal slices.
-    """
-    names = (
-        "01 red",
-        "02 orange",
-        "03 yellow",
-        "04 yellow-green",
-        "05 green",
-        "06 blue-green",
-        "07 cyan",
-        "08 blue",
-        "09 indigo",
-        "10 violet",
-        "11 purple",
-        "12 pink",
-    )
+GRAYS_DARK = ContainerChain(HsvCollector("s", 0, 0.15), HsvCollector("v", 0, 0.5))
+"""Collects dark grays and black."""
 
-    return get_hue_slice_collectors(names)
+GRAYS_LIGHT = ContainerChain(HsvCollector("s", 0, 0.15), HsvCollector("v", 0, 1.1))
+"""Collects light grays and white."""
 
+GRAYS = {"00 dark grays": GRAYS_DARK, "00 light grays": GRAYS_LIGHT}
+"""Prefix this mapping to a collectors mapping to group the neutrals separately."""
 
-def get_martian_color_collectors() -> Mapping[str, Container[str]]:
-    """Divides the hue circle into 24 equal slices named according to `Warren
-    Mars' color wheel`_.
+HUES_BASIC = (
+    "01 red",
+    "02 orange",
+    "03 yellow",
+    "04 yellow-green",
+    "05 green",
+    "06 blue-green",
+    "07 cyan",
+    "08 blue",
+    "09 indigo",
+    "10 violet",
+    "11 purple",
+    "12 pink",
+)
+"""Basic division of the hue circle into 12 equal segments."""
 
-    .. _Warren Mars' color wheel:
-        https://warrenmars.com/visual_art/theory/colour_wheel/colour_wheel.htm
-    """
-    names = (
-        "01 red",
-        "02 orange",
-        "03 turmeric",
-        "04 yellow cheese",
-        "05 yellow",
-        "06 green grape",
-        "07 chartreuse",
-        "08 green pea",
-        "09 green",
-        "10 clover",
-        "11 emerald",
-        "12 malachite",
-        "13 cyan",
-        "14 turquoise",
-        "15 azure",
-        "16 royal blue",
-        "17 blue",
-        "18 dioxazine",
-        "19 violet",
-        "20 aniline",
-        "21 magenta",
-        "22 pink",
-        "23 prickly pear",
-        "24 red plum",
-    )
+HUES_MARTIAN = (
+    "01 red",
+    "02 orange",
+    "03 turmeric",
+    "04 yellow cheese",
+    "05 yellow",
+    "06 green grape",
+    "07 chartreuse",
+    "08 green pea",
+    "09 green",
+    "10 clover",
+    "11 emerald",
+    "12 malachite",
+    "13 cyan",
+    "14 turquoise",
+    "15 azure",
+    "16 royal blue",
+    "17 blue",
+    "18 dioxazine",
+    "19 violet",
+    "20 aniline",
+    "21 magenta",
+    "22 pink",
+    "23 prickly pear",
+    "24 red plum",
+)
+"""Divides the hue circle into 24 equal segments named according to
+`Warren Mars' color wheel`_.
 
-    return get_hue_slice_collectors(names)
+.. _Warren Mars' color wheel:
+    https://warrenmars.com/visual_art/theory/colour_wheel/colour_wheel.htm
+"""

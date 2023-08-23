@@ -15,8 +15,36 @@ def saturation_key(hex_color: str) -> float:
     return hex_to_hsv(hex_color)[1]
 
 
+def value_key(hex_color: str) -> float:
+    """Allows sorting hexadecimal RGB colors based on their value.
+
+    Args:
+        hex_color: The hexadecimal color being sorted.
+
+    Returns:
+        The value component (``0`` to ``1``) for ``hex_color``.
+    """
+    return hex_to_hsv(hex_color)[2]
+
+
+def luminance_sort_key(hex_color: str) -> tuple[float, float, float]:
+    """Implements a basic luminance sorting key.
+
+    Args:
+        hex_color: The hexadecimal color being sorted.
+
+    Returns:
+        The value to sort this color on.
+    """
+    r, g, b = hex_to_rgb(hex_color)
+    h, s, v = colorsys.rgb_to_hsv(r, g, b)
+    lum = get_luminance(r, g, b)
+
+    return lum, s, v
+
+
 def hlv_step_sort_key(hex_color: str, repetitions=8) -> tuple[int, float, int]:
-    """Implements luminance-based key.
+    """Implements a luminance step-sort key.
 
     Args:
         hex_color: The hexadecimal color being sorted.

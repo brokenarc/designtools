@@ -14,9 +14,10 @@ from collections.abc import Sequence
 from pathlib import Path
 from textwrap import dedent
 
-from designtools.color import group_colors
-from designtools.color.collectors import get_12_hue_collectors, HsvCollector
-from designtools.color.sorters import hlv_step_sort_key
+from designtools.color import group_colors, hex_to_hsv
+from designtools.color.collectors import GRAYS, HUES_BASIC, segment_hues
+
+from designtools.color.sorters import luminance_sort_key
 from designtools.graphics import SwatchRenderer
 
 HEX_COLOR = re.compile(r"(#[0-9a-f]{6}|#[0-9a-f]{3})", re.I)
@@ -31,7 +32,8 @@ SWATCH_RADIUS = 32
 SWATCH_PADDING = SWATCH_RADIUS / 2
 """The padding around the swatch image and between the swatch rows."""
 
-COLOR_COLLECTORS = {"00 grays": HsvCollector("s", 0, 0.1)} | get_12_hue_collectors()
+COLOR_COLLECTORS = GRAYS | segment_hues(HUES_BASIC)
+"""The collectors used to group the colors found in the text file."""
 
 MSG_STATUS = "\nExtracted {0} colors from {1}.\nWriting swatches to {2}."
 
@@ -78,11 +80,11 @@ def __parse_file(filename: str) -> Sequence[str]:
 
 
 def __process_colors(colors: Sequence[str]):
-    groups = group_colors(colors, COLOR_COLLECTORS)
+    groups = group_colors(colors, COLOR_COLLECTORS, hex_to_hsv)
 
     # Sort each group and filter out any empty groups
     return [
-        sorted(groups[key], key=hlv_step_sort_key, reverse=True)
+        sorted(groups[key], key=luminance_sort_key, reverse=True)
         for key in sorted(groups.keys())
         if len(groups[key]) > 0
     ]
