@@ -277,3 +277,15 @@ sequence via the invert transform.
 .. _Generalized metallic means:
    https://arxiv.org/abs/1901.02619
 """
+
+SCALAR_SEQUENCES = {
+    "Golden powers": GOLDEN_POWERS,
+    "Fibonacci": FIBONACCI,
+    "Lucas": LUCAS,
+    "Pell": PELL,
+    "Pell-Lucas": PELL_LUCAS,
+    "Metallic means": METALLIC_MEAN
+}
+"""Mapping of the scalar sequence names and values for use by command line
+tools.
+"""

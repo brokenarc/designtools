@@ -51,3 +51,12 @@ unique real solution of the cubic equation ``x**3 == x + 1``.
 .. _plastic number:
    https://en.wikipedia.org/wiki/Plastic_number
 """
+
+RATIOS = {
+    "Golden Ratio": GOLDEN_RATIO,
+    "Supergolden Ratio": SUPERGOLDEN_RATIO,
+    "Silver Ratio": SILVER_RATIO,
+    "Plastic Number": PLASTIC_NUMBER
+}
+"""Mapping of the ratio names and values for use by command line tools.
+"""

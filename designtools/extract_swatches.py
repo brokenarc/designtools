@@ -12,6 +12,7 @@ import re
 from argparse import ArgumentParser
 from collections.abc import Sequence
 from pathlib import Path
+from textwrap import dedent
 
 from designtools.color import group_colors
 from designtools.color.collectors import get_12_hue_collectors
@@ -30,23 +31,30 @@ SWATCH_RADIUS = 32
 SWATCH_PADDING = SWATCH_RADIUS / 2
 """The padding around the swatch image and between the swatch rows."""
 
+MSG_STATUS = "\nExtracted {0} colors from {1}.\nWriting swatches to {2}."
+
+HELP_DESCRIPTION = dedent(
+    """Extracts hexadecimal color codes from a text file and generates an SVG
+    with swatches of those colors."""
+)
+
+HELP_IN_FILE = dedent(
+    """The text file to extract color codes from. This may be any text file
+    that contains hexadecimal color codes."""
+)
+
+HELP_OUT_FILE = dedent(
+    """Optional. The name of the SVG file to create. If the argument is not
+    given, the script will create a file with the same base name as the
+    input file and append the extension '.swatches.svg'."""
+)
+
 
 def __get_args():
-    parser = ArgumentParser(
-        prog="swatch_extractor",
-        description="Creates an SVG swatch card from a text file",
-    )
+    parser = ArgumentParser(prog="extract_swatches", description=HELP_DESCRIPTION)
 
-    parser.add_argument(
-        "in_file", action="store", help="The text file to extract color codes from."
-    )
-
-    parser.add_argument(
-        "out_file",
-        action="store",
-        nargs="?",
-        help="The name of the SVG file to create.",
-    )
+    parser.add_argument("text_file", action="store", help=HELP_IN_FILE)
+    parser.add_argument("swatch_file", action="store", nargs="?", help=HELP_OUT_FILE)
 
     return parser.parse_args()
 
@@ -84,8 +92,7 @@ def extract_swatches(in_file: str, out_file: str):
     render = SwatchRenderer(SWATCH_RADIUS, SWATCH_PADDING)
     svg = render.render(groups)
 
-    print(f"\nExtracted {len(colors)} colors from {in_file}")
-    print(f"Writing swatches as {out_file}\n")
+    print(MSG_STATUS.format(len(colors), in_file, out_file))
 
     with open(out_file, "x") as file:
         file.writelines(svg)
@@ -93,14 +100,14 @@ def extract_swatches(in_file: str, out_file: str):
 
 def main():
     args = __get_args()
-    in_path = Path(args.in_file).absolute()
-    out_path = (
-        args.out_file
-        if args.out_file
-        else str(in_path.with_name(OUTFILE.format(in_path.stem)).absolute())
+    text_file = Path(args.text_file).absolute()
+    swatch_file = (
+        args.swatch_file
+        if args.swatch_file
+        else str(text_file.with_name(OUTFILE.format(text_file.stem)).absolute())
     )
 
-    extract_swatches(str(in_path), out_path)
+    extract_swatches(str(text_file), swatch_file)
 
 
 if __name__ == "__main__":
