@@ -17,7 +17,7 @@ swatches of those colors.
 
 - `text_file` : The text file to extract color codes from. This may be any text
   file that contains hexadecimal color codes.
-- `swatch_file` :  Optional. The name of the SVG file to create. If the argument
+- `swatch_file` : Optional. The name of the SVG file to create. If the argument
   is not given, the script will create a file with the same base name as the
   input file and append the extension `.swatches.svg`.
 - `-h`, `--help` : show the help message and exit.
@@ -49,7 +49,9 @@ values), Pell (32 values), Pell-Lucas (31 values), Metallic means (20 values)
 Generates numeric sequences using known ratios and writes them as columns in a
 CSV file with sequence names in the first row.
 
-Known ratios: Golden Ratio, Supergolden Ratio, Silver Ratio, Plastic Number
+Known ratios: Golden ratio, Supergolden ratio, Silver ratio, Plastic number,
+Minor second, Major second, Minor third, Major third, Perfect fourth, Augmented
+fourth, Perfect fifth
 
 #### Usage
 

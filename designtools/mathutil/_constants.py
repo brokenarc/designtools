@@ -52,11 +52,67 @@ unique real solution of the cubic equation ``x**3 == x + 1``.
    https://en.wikipedia.org/wiki/Plastic_number
 """
 
+MINOR_SECOND = 1.066666666666667
+"""The musical `minor second`_ (16:15).
+
+.. _minor second:
+   https://en.wikipedia.org/wiki/Semitone#Minor_second
+"""
+
+MAJOR_SECOND = 1.125
+"""The musical `major second`_ (9:8).
+
+.. _major second:
+   https://en.wikipedia.org/wiki/Major_second
+"""
+
+MINOR_THIRD = 1.2
+"""The musical `minor third`_ (6:5).
+
+.. _minor third:
+   https://en.wikipedia.org/wiki/Minor_third
+"""
+
+MAJOR_THIRD = 1.250
+""" The musical `major third`_ (5:4).
+
+.. _major third:
+   https://en.wikipedia.org/wiki/Major_third
+"""
+
+PERFECT_FOURTH = 1.333333333333333
+"""The musical `perfect fourth`_ (4:3).
+
+.. _perfect fourth:
+   https://en.wikipedia.org/wiki/Perfect_fourth
+"""
+
+AUGMENTED_FOURTH = 1.414213562373095
+"""The musical `augmented fourth`_ (`sqrt(2)`).
+
+.. _augmented fourth:
+   https://en.wikipedia.org/wiki/Tritone#Augmented_fourth_and_diminished_fifth
+"""
+
+PERFECT_FIFTH = 1.5
+"""The musical `perfect fifth`_ (3:2).
+
+.. _perfect fifth:
+   https://en.wikipedia.org/wiki/Perfect_fifth
+"""
+
 RATIOS = {
-    "Golden Ratio": GOLDEN_RATIO,
-    "Supergolden Ratio": SUPERGOLDEN_RATIO,
-    "Silver Ratio": SILVER_RATIO,
-    "Plastic Number": PLASTIC_NUMBER
+    "Golden ratio": GOLDEN_RATIO,
+    "Supergolden ratio": SUPERGOLDEN_RATIO,
+    "Silver ratio": SILVER_RATIO,
+    "Plastic number": PLASTIC_NUMBER,
+    "Minor second": MINOR_SECOND,
+    "Major second": MAJOR_SECOND,
+    "Minor third": MINOR_THIRD,
+    "Major third": MAJOR_THIRD,
+    "Perfect fourth": PERFECT_FOURTH,
+    "Augmented fourth": AUGMENTED_FOURTH,
+    "Perfect fifth": PERFECT_FIFTH,
 }
 """Mapping of the ratio names and values for use by command line tools.
 """
