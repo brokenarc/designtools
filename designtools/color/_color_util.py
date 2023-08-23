@@ -93,14 +93,18 @@ def get_luminance(red: float, green: float, blue: float) -> float:
     """Computes the `relative luminance`_ for the given RGB color.
 
     Args:
-        red: The red component.
-        green: The green component.
-        blue: The blue component.
+        red: The red component as a float from ``0`` to ``1``.
+        green: The green component as a float from ``0`` to ``1``.
+        blue: The blue component as a float from ``0`` to ``1``.
 
     Returns:
         The relative luminance.
 
     .. _relative luminance:
-       https://en.wikipedia.org/wiki/Relative_luminance
+       https://www.w3.org/WAI/GL/wiki/Relative_luminance
     """
-    return 0.2126 * red + 0.7152 * green + 0.0722 * blue
+    rs = red / 12.92 if red <= 0.04045 else ((red + 0.055) / 1.055) ** 2.4
+    gs = green / 12.92 if green <= 0.04045 else ((green + 0.055) / 1.055) ** 2.4
+    bs = blue / 12.92 if blue <= 0.04045 else ((blue + 0.055) / 1.055) ** 2.4
+
+    return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs

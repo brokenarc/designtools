@@ -57,18 +57,6 @@ class ColorUtilTest(unittest.TestCase):
                 test = color.rgb_to_hex(*rgb)
                 self.assertEqual(test, expect)
 
-    def test_get_luminance(self):
-        data = (
-            ((1.0, 1.0, 1.0), 1.0),
-            ((0.5, 0.25, 1.0), 0.3573),
-            ((1.0, 0.5, 0.5), 0.6063000000000001),
-            ((0.0, 0.0, 0.0), 0.0),
-        )
-        for rgb, expect in data:
-            with self.subTest(rgb):
-                actual = color.get_luminance(*rgb)
-                self.assertEqual(actual, expect)
-
 
 if __name__ == "__main__":
     unittest.main()

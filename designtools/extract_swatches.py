@@ -15,7 +15,7 @@ from pathlib import Path
 from textwrap import dedent
 
 from designtools.color import group_colors
-from designtools.color.collectors import get_12_hue_collectors
+from designtools.color.collectors import get_12_hue_collectors, HsvCollector
 from designtools.color.sorters import hlv_step_sort_key
 from designtools.graphics import SwatchRenderer
 
@@ -30,6 +30,8 @@ SWATCH_RADIUS = 32
 
 SWATCH_PADDING = SWATCH_RADIUS / 2
 """The padding around the swatch image and between the swatch rows."""
+
+COLOR_COLLECTORS = {"00 grays": HsvCollector("s", 0, 0.1)} | get_12_hue_collectors()
 
 MSG_STATUS = "\nExtracted {0} colors from {1}.\nWriting swatches to {2}."
 
@@ -76,7 +78,7 @@ def __parse_file(filename: str) -> Sequence[str]:
 
 
 def __process_colors(colors: Sequence[str]):
-    groups = group_colors(colors, get_12_hue_collectors())
+    groups = group_colors(colors, COLOR_COLLECTORS)
 
     # Sort each group and filter out any empty groups
     return [

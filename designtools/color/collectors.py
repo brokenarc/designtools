@@ -4,43 +4,48 @@ from designtools.mathutil import Range
 from ._color_util import hex_to_hsv
 
 
-class HueCollector(Container[str]):
-    """Tests for membership based on a color's hue.
+class HsvCollector(Container[str]):
+    """Tests for membership based on one of a color's HSV components.
 
-    The class assumes unit-less hue values from ``0`` to ``1`` when testing
-    for membership.
+    The class assumes unit-less component values from ``0`` to ``1`` when
+    testing for membership.
 
     Args:
-        lower_hue: The lower hue boundary for this collector's range,
+        lower_bound: The lower hue boundary for this collector's range,
             inclusive.
-        upper_hue: The upper hue boundary for this collector's range,
+        upper_bound: The upper hue boundary for this collector's range,
             exclusive.
     """
 
-    __slots__ = ("_hue_range",)
+    COMPONENTS = ("h", "s", "v")
+    __slots__ = ("_range", "_component")
 
-    def __init__(self, lower_hue: float, upper_hue: float):
-        self._hue_range = Range(lower_hue, upper_hue)
+    def __init__(self, component: str, lower_bound: float, upper_bound: float):
+        if component not in HsvCollector.COMPONENTS:
+            raise ValueError(f"component must be one of {HsvCollector.COMPONENTS}")
+
+        self._component = HsvCollector.COMPONENTS.index(component)
+        self._range = Range(lower_bound, upper_bound)
 
     def __repr__(self):
-        return f"HueCollector({self._hue_range.min}, {self._hue_range.max}"
+        return f"""HsvCollector("{self._component}", {self._range.min}, {self._range.max})"""
 
     def __contains__(self, hex_code: object) -> bool:
-        """Checks if the given color's hue is within this instance's range.
+        """Checks if a color matches the criteria for this collector.
 
         Args:
             hex_code: The hexadecimal color code to check.
 
         Returns:
-            ``True`` if the color's hue is in the instance's range.
+            ``True`` if the color matches this collector instance.
         """
-        hue, *_ = hex_to_hsv(str(hex_code))
-        return hue in self._hue_range
+        hsv = hex_to_hsv(str(hex_code))
+        return hsv[self._component] in self._range
 
 
 def get_hue_slice_collectors(names: Sequence[str]) -> Mapping[str, Container[str]]:
-    """Generates a set of equally spaced hue collectors based on a list of
-    names.
+    """Generates a set of equally spaced hue collectors with the given names,
+    assigned in the order that the names are given.
 
     Args:
         names: The strings that will be used as keys in the resulting mapping.
@@ -50,7 +55,7 @@ def get_hue_slice_collectors(names: Sequence[str]) -> Mapping[str, Container[str
     """
     slices = len(names)
     return {
-        name: HueCollector(index / slices, (index + 1) / slices)
+        name: HsvCollector("h", index / slices, (index + 1) / slices)
         for index, name in enumerate(names)
     }
 
