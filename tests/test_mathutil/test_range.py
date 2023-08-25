@@ -2,46 +2,74 @@ import unittest
 
 from designtools import mathutil
 
-# Range test data
-# (params, include, repr, str)
-RANGE_DATA = (
-    ((0, 10, True, False), (5, True), "Range(0, 10, True, False)", "Range [0, 10)"),
-    ((0, 10, True, False), (-5, False), "Range(0, 10, True, False)", "Range [0, 10)"),
-    ((0, 10, True, False), (0, True), "Range(0, 10, True, False)", "Range [0, 10)"),
-    ((0, 10, True, False), (10, False), "Range(0, 10, True, False)", "Range [0, 10)"),
-    ((0, 10, False, False), (0, False), "Range(0, 10, False, False)", "Range (0, 10)"),
-    ((0, 10, True, True), (10, True), "Range(0, 10, True, True)", "Range [0, 10]"),
-    ((0, 10, False, False), (10, False), "Range(0, 10, False, False)", "Range (0, 10)"),
-    ((0, 10, False, False), (0, False), "Range(0, 10, False, False)", "Range (0, 10)"),
-    ((0, 10, False, False), (5, True), "Range(0, 10, False, False)", "Range (0, 10)"),
+# ----------------------------------------------------------------------------
+# Constructor parameters that should fail.
+DATA_BAD_INIT = ((10, 0), (10, 10))
+
+# ----------------------------------------------------------------------------
+# Constructor parameters mapped to contains test and expected result.
+DATA_CONTAINS = (
+    ((0, 10, True, False), 5, True),
+    ((0, 10, True, False), -5, False),
+    ((0, 10, True, False), 0, True),
+    ((0, 10, True, False), 10, False),
+    ((0, 10, False, False), 0, False),
+    ((0, 10, True, True), 10, True),
+    ((0, 10, False, False), 10, False),
+    ((0, 10, False, False), 0, False),
+    ((0, 10, False, False), 5, True),
+)
+
+# ----------------------------------------------------------------------------
+# Constructor parameters mapped to __repr__ output.
+DATA_REPR = (
+    ((0, 10, True, False), "Range(0, 10, True, False)"),
+    ((0, 10, True, False), "Range(0, 10, True, False)"),
+    ((0, 10, True, False), "Range(0, 10, True, False)"),
+    ((0, 10, True, False), "Range(0, 10, True, False)"),
+    ((0, 10, False, False), "Range(0, 10, False, False)"),
+    ((0, 10, True, True), "Range(0, 10, True, True)"),
+    ((0, 10, False, False), "Range(0, 10, False, False)"),
+    ((0, 10, False, False), "Range(0, 10, False, False)"),
+    ((0, 10, False, False), "Range(0, 10, False, False)"),
+)
+
+# ----------------------------------------------------------------------------
+# Constructor parameters mapped to __str__ output.
+DATA_STR = (
+    ((0, 10, True, False), "Range [0, 10)"),
+    ((0, 10, True, False), "Range [0, 10)"),
+    ((0, 10, True, False), "Range [0, 10)"),
+    ((0, 10, True, False), "Range [0, 10)"),
+    ((0, 10, False, False), "Range (0, 10)"),
+    ((0, 10, True, True), "Range [0, 10]"),
+    ((0, 10, False, False), "Range (0, 10)"),
+    ((0, 10, False, False), "Range (0, 10)"),
+    ((0, 10, False, False), "Range (0, 10)"),
 )
 
 
 class RangeTest(unittest.TestCase):
     def test_bad_range_init(self):
-        bad_init_data = ((10, 0), (10, 10))
-
-        for params in bad_init_data:
+        for params in DATA_BAD_INIT:
             with self.subTest(params):
                 with self.assertRaises(ValueError):
                     mathutil.Range(*params)
 
     def test_range_contains(self):
-        for params, include, *_ in RANGE_DATA:
-            with self.subTest(f"{params}, {include}"):
-                in_test = include[0]
-                in_expect = include[1]
+        for params, test, expect in DATA_CONTAINS:
+            with self.subTest(f"{test} {'in' if expect else 'not in'} {params}"):
                 r = mathutil.Range(*params)
-                self.assertEqual(in_test in r, in_expect)
+                self.assertEqual(test in r, expect)
 
     def test_range_repr(self):
-        for params, _, x_repr, _ in RANGE_DATA:
+        for params, x_repr in DATA_REPR:
             with self.subTest(f"{params} -> {x_repr}"):
                 r = mathutil.Range(*params)
                 self.assertEqual(repr(r), x_repr)
 
     def test_range_str(self):
-        for params, _, _, x_str in RANGE_DATA:
+        for params, x_str in DATA_STR:
             with self.subTest(f"{params} -> {x_str}"):
                 r = mathutil.Range(*params)
                 self.assertEqual(str(r), x_str)
