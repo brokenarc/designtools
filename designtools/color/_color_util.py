@@ -19,7 +19,7 @@ def normalize_hex_color(hex_color: str) -> str:
         A six-digit hexadecimal color code.
 
     Raises:
-        ValueError: If ``hex_color`` does not have 3, 4, 5, or 8 digits.
+        ValueError: If ``hex_color`` does not have 3, 4, 6, or 8 digits.
     """
     value = hex_color.lstrip("#").lower()
 

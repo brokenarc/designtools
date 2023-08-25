@@ -1,12 +1,12 @@
-# Byte-compiled / optimized / DLL files
+## Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-# C extensions
+## C extensions
 *.so
 
-# Distribution / packaging
+## Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -26,17 +26,15 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+## PyInstaller
 *.manifest
 *.spec
 
-# Installer logs
+## Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Unit test / coverage reports
+## Unit test / coverage reports
 htmlcov/
 .tox/
 .nox/
@@ -51,21 +49,21 @@ coverage.xml
 .pytest_cache/
 cover/
 
-# Translations
+## Translations
 *.mo
 *.pot
 
-# Sphinx documentation
+## Sphinx documentation
 docs/_build/
 
-# PyBuilder
+## PyBuilder
 .pybuilder/
 target/
 
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+## PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
-# Environments
+## Environments
 .env
 .venv
 .env/
@@ -76,19 +74,27 @@ ENV/
 env.bak/
 venv.bak/
 
-# mkdocs documentation
+## mkdocs documentation
 /site
 
-# mypy
+## mypy
 .mypy_cache/
 .dmypy.json
 dmypy.json
 
-# Pyre type checker
+## Pyre type checker
 .pyre/
 
-# pytype static type analyzer
+## pytype static type analyzer
 .pytype/
 
-# Cython debug symbols
+## Cython debug symbols
 cython_debug/
+
+## PyCharm
+.idea/
+
+## VSCode
+.vscode/
+.history/
+*.vsix

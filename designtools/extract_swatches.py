@@ -14,9 +14,8 @@ from collections.abc import Sequence
 from pathlib import Path
 from textwrap import dedent
 
-from designtools.color import group_colors, hex_to_hsv
-from designtools.color.collectors import GRAYS, HUES_BASIC, segment_hues
-
+from designtools.color import Color, group_colors, hex_color
+from designtools.color.collectors import GRAYS, HUES_BASIC
 from designtools.color.sorters import luminance_sort_key
 from designtools.graphics import SwatchRenderer
 
@@ -32,7 +31,7 @@ SWATCH_RADIUS = 32
 SWATCH_PADDING = SWATCH_RADIUS / 2
 """The padding around the swatch image and between the swatch rows."""
 
-COLOR_COLLECTORS = GRAYS | segment_hues(HUES_BASIC)
+COLOR_COLLECTORS = GRAYS | HUES_BASIC
 """The collectors used to group the colors found in the text file."""
 
 MSG_STATUS = "\nExtracted {0} colors from {1}.\nWriting swatches to {2}."
@@ -63,7 +62,7 @@ def __get_args():
     return parser.parse_args()
 
 
-def __parse_file(filename: str) -> Sequence[str]:
+def __parse_file(filename: str) -> Sequence[Color]:
     """Extracts the colors from a text file.
 
     Currently only supports hexadecimal color codes.
@@ -73,14 +72,14 @@ def __parse_file(filename: str) -> Sequence[str]:
         for line in file:
             colors.update(
                 # Extract any hexadecimal color codes from the current line.
-                [color.lower() for color in re.findall(HEX_COLOR, line)]
+                [hex_color(color) for color in re.findall(HEX_COLOR, line)]
             )
 
     return tuple(colors)
 
 
-def __process_colors(colors: Sequence[str]):
-    groups = group_colors(colors, COLOR_COLLECTORS, hex_to_hsv)
+def __process_colors(colors: Sequence[Color]):
+    groups = group_colors(colors, COLOR_COLLECTORS)
 
     # Sort each group and filter out any empty groups
     return [

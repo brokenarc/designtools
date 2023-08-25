@@ -1,5 +1,6 @@
 from collections.abc import Sequence
 
+from designtools.color import Color
 from designtools.mathutil import Numeric
 
 
@@ -39,17 +40,18 @@ class SwatchRenderer:
             f"</svg>"
         )
 
-    def _render_group_row(self, color_group: Sequence[str], cy: Numeric) -> str:
+    def _render_group_row(self, color_group: Sequence[Color], cy: Numeric) -> str:
         cx = self._padding + self._radius
         c = []
 
         for color in color_group:
-            c.append(SwatchRenderer._circle(cx, cy, self._radius, fill=f"#{color}"))
+            c.append(
+                SwatchRenderer._circle(cx, cy, self._radius, fill=f"#{color.hex_code}"))
             cx += self._radius
 
         return SwatchRenderer._group(c)
 
-    def _render_groups(self, color_groups: Sequence[Sequence[str]]) -> str:
+    def _render_groups(self, color_groups: Sequence[Sequence[Color]]) -> str:
         cy = self._padding + self._radius
         rows = []
 
@@ -61,7 +63,7 @@ class SwatchRenderer:
         return "".join(rows)
 
     def _compute_viewbox(
-        self, color_groups: Sequence[Sequence[str]]
+        self, color_groups: Sequence[Sequence[Color]]
     ) -> tuple[Numeric, Numeric]:
         row_count = len(color_groups)
         col_count = max(len(group) for group in color_groups)
@@ -71,7 +73,7 @@ class SwatchRenderer:
 
         return width, height
 
-    def render(self, color_groups=Sequence[Sequence[str]]) -> str:
+    def render(self, color_groups=Sequence[Sequence[Color]]) -> str:
         """Renders a sequence of color groups as swatches in an SVG image.
 
         Each group is rendered as a row, and each swatch within a group is

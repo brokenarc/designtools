@@ -1,10 +1,15 @@
 import unittest
 
+from designtools.color import hex_color
 from designtools.graphics import SwatchRenderer
 
 
 class SwatchRendererTest(unittest.TestCase):
-    GROUPS = (("ff0000", "ff8800", "ff0088"), ("00ff00", "00ff88"), ("0000ff",))
+    GROUPS = (
+        (hex_color("ff0000"), hex_color("ff8800"), hex_color("ff0088")),
+        (hex_color("00ff00"), hex_color("00ff88")),
+        (hex_color("0000ff"),)
+    )
 
     EXPECT = (
         '<svg viewBox="0 0 160 256" xmlns="http://www.w3.org/2000/svg">'

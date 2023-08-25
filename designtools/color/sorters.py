@@ -1,53 +1,33 @@
-import colorsys
-import math
-from designtools.color._color_util import hex_to_hsv, hex_to_rgb, get_luminance
+"""Provides sorting keys for Color instances."""
+
+from ._models import Color
+from ._color_util import get_luminance
+from ._models import Color
 
 
-def saturation_key(hex_color: str) -> float:
-    """Allows sorting hexadecimal RGB colors based on their saturation.
-
-    Args:
-        hex_color: The hexadecimal color being sorted.
-
-    Returns:
-        The saturation value (``0`` to ``1``) for ``hex_color``.
-    """
-    return hex_to_hsv(hex_color)[1]
+def saturation_key(color: Color) -> float:
+    """Allows sorting colors based on their saturation."""
+    return color.hsv[1]
 
 
-def value_key(hex_color: str) -> float:
-    """Allows sorting hexadecimal RGB colors based on their value.
-
-    Args:
-        hex_color: The hexadecimal color being sorted.
-
-    Returns:
-        The value component (``0`` to ``1``) for ``hex_color``.
-    """
-    return hex_to_hsv(hex_color)[2]
+def value_key(color: Color) -> float:
+    """Allows sorting colors based on their HSV value."""
+    return color.hsv[2]
 
 
-def luminance_sort_key(hex_color: str) -> tuple[float, float, float]:
-    """Implements a basic luminance sorting key.
-
-    Args:
-        hex_color: The hexadecimal color being sorted.
-
-    Returns:
-        The value to sort this color on.
-    """
-    r, g, b = hex_to_rgb(hex_color)
-    h, s, v = colorsys.rgb_to_hsv(r, g, b)
-    lum = get_luminance(r, g, b)
+def luminance_sort_key(color: Color) -> tuple[float, float, float]:
+    """Implements a basic luminance sorting key."""
+    h, s, v = color.hsv
+    lum = get_luminance(*color.rgb)
 
     return lum, s, v
 
 
-def hlv_step_sort_key(hex_color: str, repetitions=8) -> tuple[int, float, int]:
+def hlv_step_sort_key(color: Color, repetitions=8) -> tuple[int, float, int]:
     """Implements a luminance step-sort key.
 
     Args:
-        hex_color: The hexadecimal color being sorted.
+        color: The color being sorted.
         repetitions: A smoothing factor for the algorithm.
 
     Returns:
@@ -55,9 +35,8 @@ def hlv_step_sort_key(hex_color: str, repetitions=8) -> tuple[int, float, int]:
 
     .. [Ref] https://www.alanzucconi.com/2015/09/30/colour-sorting/
     """
-    r, g, b = hex_to_rgb(hex_color)
-    h, s, v = colorsys.rgb_to_hsv(r, g, b)
-    lum = get_luminance(r, g, b)
+    h, _, v = color.hsv
+    lum = get_luminance(*color.rgb)
 
     h2 = int(h * repetitions)
     v2 = int(v * repetitions)
