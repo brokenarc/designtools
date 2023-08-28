@@ -1,45 +1,46 @@
 """Provides a range that can handle floating point values.
 """
+from collections.abc import Container
 from ._types import Numeric
 
 
-class Range:
-    """Provides a simple representation of a range that can test for a number
-    value on that range.
+class Range(Container[Numeric]):
+    """Provides a simple range (which may be open- or close-ended) that can test
+    if a value is in the range.
 
-    By default, the range includes the minimum value and excludes the maximum
-    value when testing for inclusion: [minimum, maximum). This behavior can be
-    changed via constructor parameters.
+    By default, the range is closed-ended.
+
+    Example:
+        >>> 4 in Range(1, 4)
+        True
+
+        >>> 4 in Range(1, 4, closed_ended=False)
+        False
 
     Args:
         min_value: The minimum value for this range.
         max_value: The maximum value for this range.
-        min_inclusive: If ``True`` (default), the minimum value will be
-            included when testing if a value is present on the range.
-        max_inclusive: If ``False`` (default), the maximum value will be
-            excluded when testing if a value is present on the range.
+        closed_ended: If ``True`` (default), the maximum value will be
+            included when testing if a number is present on the range.
 
     Raises:
         ValueError: If ``min_value`` is not less than ``max_value``
     """
 
-    __slots__ = ("_min", "_max", "_min_inclusive", "_max_inclusive")
+    __slots__ = ("_min", "_max", "_closed_ended")
 
     def __init__(
         self,
         min_value: Numeric,
         max_value: Numeric,
-        min_inclusive: bool = True,
-        max_inclusive: bool = False,
+        closed_ended=True,
     ):
-        self._min = min_value
-        self._max = max_value
-
         if max_value <= min_value:
             raise ValueError("Maximum must be greater than minimum")
 
-        self._min_inclusive = min_inclusive
-        self._max_inclusive = max_inclusive
+        self._min = min_value
+        self._max = max_value
+        self._closed_ended = closed_ended
 
     @property
     def min(self) -> Numeric:
@@ -52,38 +53,22 @@ class Range:
         return self._max
 
     @property
-    def min_inclusive(self) -> bool:
-        """Whether the minimum value will be included when testing if a value
-        is present on the range."""
-        return self._min_inclusive
-
-    @property
-    def max_inclusive(self) -> bool:
-        """Whether the maximum value will be included when testing if a value
-        is present on the range."""
-        return self._max_inclusive
+    def closed_ended(self) -> bool:
+        """Whether the range is closed-ended, meaning the maximum value will be
+        included (``True``) or excluded (``False``) when testing if a number is
+        present on the range."""
+        return self._closed_ended
 
     def __contains__(self, value: Numeric) -> bool:
-        """Tests if the given value is present in this range.
+        """Tests if the given number is present in this range."""
+        end = value <= self.max if self.closed_ended else value < self.max
 
-        Args:
-            value: The value to test.
-
-        Returns:
-            ``True`` if ``value`` is within this range, ``False`` if it is not.
-        """
-        upper = self.min <= value if self.min_inclusive else self.min < value
-        lower = value <= self.max if self.max_inclusive else value < self.max
-
-        return upper and lower
+        return (self.min <= value) and end
 
     def __repr__(self) -> str:
-        return (
-            f"Range({self.min}, {self.max}, {self.min_inclusive}, {self.max_inclusive})"
-        )
+        return f"Range({self.min}, {self.max}, {self.closed_ended})"
 
     def __str__(self) -> str:
-        lower = "[" if self.min_inclusive else "("
-        upper = "]" if self.max_inclusive else ")"
+        end = "]" if self.closed_ended else ")"
 
-        return f"Range {lower}{self.min}, {self.max}{upper}"
+        return f"Range [{self.min}, {self.max}{end}"

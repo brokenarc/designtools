@@ -9,43 +9,27 @@ DATA_BAD_INIT = ((10, 0), (10, 10))
 # ----------------------------------------------------------------------------
 # Constructor parameters mapped to contains test and expected result.
 DATA_CONTAINS = (
-    ((0, 10, True, False), 5, True),
-    ((0, 10, True, False), -5, False),
-    ((0, 10, True, False), 0, True),
-    ((0, 10, True, False), 10, False),
-    ((0, 10, False, False), 0, False),
-    ((0, 10, True, True), 10, True),
-    ((0, 10, False, False), 10, False),
-    ((0, 10, False, False), 0, False),
-    ((0, 10, False, False), 5, True),
+    ((0, 10, False), 5, True),
+    ((0, 10, False), -5, False),
+    ((0, 10, False), 0, True),
+    ((0, 10, False), 10, False),
+    ((0, 10, True), 10, True),
+    ((0, 10, False), 10, False),
+    ((0, 10, False), 5, True),
 )
 
 # ----------------------------------------------------------------------------
 # Constructor parameters mapped to __repr__ output.
 DATA_REPR = (
-    ((0, 10, True, False), "Range(0, 10, True, False)"),
-    ((0, 10, True, False), "Range(0, 10, True, False)"),
-    ((0, 10, True, False), "Range(0, 10, True, False)"),
-    ((0, 10, True, False), "Range(0, 10, True, False)"),
-    ((0, 10, False, False), "Range(0, 10, False, False)"),
-    ((0, 10, True, True), "Range(0, 10, True, True)"),
-    ((0, 10, False, False), "Range(0, 10, False, False)"),
-    ((0, 10, False, False), "Range(0, 10, False, False)"),
-    ((0, 10, False, False), "Range(0, 10, False, False)"),
+    ((0, 10, False), "Range(0, 10, False)"),
+    ((0, 10, True), "Range(0, 10, True)"),
 )
 
 # ----------------------------------------------------------------------------
 # Constructor parameters mapped to __str__ output.
 DATA_STR = (
-    ((0, 10, True, False), "Range [0, 10)"),
-    ((0, 10, True, False), "Range [0, 10)"),
-    ((0, 10, True, False), "Range [0, 10)"),
-    ((0, 10, True, False), "Range [0, 10)"),
-    ((0, 10, False, False), "Range (0, 10)"),
-    ((0, 10, True, True), "Range [0, 10]"),
-    ((0, 10, False, False), "Range (0, 10)"),
-    ((0, 10, False, False), "Range (0, 10)"),
-    ((0, 10, False, False), "Range (0, 10)"),
+    ((0, 10, False), "Range [0, 10)"),
+    ((0, 10, True), "Range [0, 10]"),
 )
 
 

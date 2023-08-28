@@ -27,7 +27,7 @@ class HsvCollector(Container[Color]):
             raise ValueError(f"component must be one of {HsvCollector.COMPONENTS}")
 
         self._component = HsvCollector.COMPONENTS.index(component)
-        self._range = Range(lower_bound, upper_bound)
+        self._range = Range(lower_bound, upper_bound, False)
 
     def __repr__(self):
         return f"""HsvCollector("{self._component}", {self._range.min}, {self._range.max})"""
