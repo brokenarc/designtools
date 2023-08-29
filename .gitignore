@@ -1,12 +1,14 @@
-## Byte-compiled / optimized / DLL files
+## Python
+
+### Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-## C extensions
+### C extensions
 *.so
 
-## Distribution / packaging
+### Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -26,15 +28,15 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-## PyInstaller
+### PyInstaller
 *.manifest
 *.spec
 
-## Installer logs
+### Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
 
-## Unit test / coverage reports
+### Unit test / coverage reports
 htmlcov/
 .tox/
 .nox/
@@ -49,21 +51,24 @@ coverage.xml
 .pytest_cache/
 cover/
 
-## Translations
+### Translations
 *.mo
 *.pot
 
-## Sphinx documentation
+### Sphinx documentation
 docs/_build/
 
-## PyBuilder
+### PyBuilder
 .pybuilder/
 target/
 
-## PEP 582; used by e.g. github.com/David-OConnor/pyflow
+### PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
-## Environments
+### Jupyter Notebook
+.ipynb_checkpoints
+
+### Environments
 .env
 .venv
 .env/
@@ -74,21 +79,21 @@ ENV/
 env.bak/
 venv.bak/
 
-## mkdocs documentation
+### mkdocs documentation
 /site
 
-## mypy
+### mypy
 .mypy_cache/
 .dmypy.json
 dmypy.json
 
-## Pyre type checker
+### Pyre type checker
 .pyre/
 
-## pytype static type analyzer
+### pytype static type analyzer
 .pytype/
 
-## Cython debug symbols
+### Cython debug symbols
 cython_debug/
 
 ## PyCharm
@@ -103,3 +108,65 @@ cython_debug/
 !.vscode/*.code-snippets
 .history/
 *.vsix
+
+## Windows
+### Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+### Dump file
+*.stackdump
+
+### Folder config file
+[Dd]esktop.ini
+
+### Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+### Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+### Windows shortcuts
+*.lnk
+
+## macOS
+### General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Icon must end with two \r
+Icon
+
+
+### Thumbnails
+._*
+
+### Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+### Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+## Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*

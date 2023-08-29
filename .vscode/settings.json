@@ -1,0 +1,35 @@
+{
+  "editor.rulers": [80, 120],
+  "editor.tabSize": 4,
+  "editor.trimAutoWhitespace": true,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "markdownlint.config": {
+    "default": true,
+    "line-length": {
+      "strict": true,
+      "code_blocks": false
+    },
+    "no-duplicate-heading": {
+      "siblings_only": true
+    },
+    "no-hard-tabs": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "editor.rulers": [
+        79,
+        88
+    ]
+  },
+  "python.testing.pytestArgs": [
+    "tests"
+  ],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
+}

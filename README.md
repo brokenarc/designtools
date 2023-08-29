@@ -2,6 +2,14 @@
 
 This is where I keep assorted Python scripts I write that support design tasks.
 
+- [Design Tools](#design-tools)
+  - [Scripts](#scripts)
+    - [extract\_swatches](#extract_swatches)
+    - [scale\_sequence](#scale_sequence)
+    - [make\_sequence](#make_sequence)
+  - [Modules](#modules)
+  - [Dependencies](#dependencies)
+
 ## Scripts
 
 ### extract_swatches
@@ -9,11 +17,11 @@ This is where I keep assorted Python scripts I write that support design tasks.
 Extracts hexadecimal color codes from a text file and generates an SVG with
 swatches of those colors.
 
-#### Usage
+#### Usage<!-- omit from toc -->
 
 `python -m designtools.extract_swatches [-h] text_file [swatch_file]`
 
-#### Arguments
+#### Arguments<!-- omit from toc -->
 
 - `text_file` : The text file to extract color codes from. This may be any text
   file that contains hexadecimal color codes.
@@ -30,11 +38,11 @@ in a CSV file with sequence names in the first row.
 Known sequences: Golden powers (20 values), Fibonacci (41 values), Lucas (39
 values), Pell (32 values), Pell-Lucas (31 values), Metallic means (20 values)
 
-#### Usage
+#### Usage<!-- omit from toc -->
 
 `python -m designtools.scale_sequence [-h] [--offset OFFSET] file value`
 
-#### Arguments
+#### Arguments<!-- omit from toc -->
 
 - `file` : The name of the CSV file to generate. This file will be overwritten
   if it already exists.
@@ -53,11 +61,11 @@ Known ratios: Golden ratio, Supergolden ratio, Silver ratio, Plastic number,
 Minor second, Major second, Minor third, Major third, Perfect fourth, Augmented
 fourth, Perfect fifth
 
-#### Usage
+#### Usage<!-- omit from toc -->
 
 `python -m designtools.make_sequence [-h] [--count COUNT] file seed`
 
-#### Arguments
+#### Arguments<!-- omit from toc -->
 
 - `file` : The name of the CSV file to generate. This file will be overwritten
   if it already exists.
@@ -77,3 +85,13 @@ fourth, Perfect fifth
 - `designtools.mathutil` contains various mathematical constants, sequences,
   and utilities. This includes things like the Golden Ratio, Golden Angle, Pell
   numbers, and the Fibonacci sequence.
+
+## Dependencies
+
+### Runtime<!-- omit from toc -->
+None.
+
+### Development<!-- omit from toc -->
+
+- [black](https://black.readthedocs.io/en/stable/) for code formatting
+- [pytest](https://pytest.org/) for tests
