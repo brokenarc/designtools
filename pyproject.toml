@@ -29,6 +29,7 @@ classifiers = [
     "Topic :: Multimedia :: Graphics",
     "Topic :: Utilities",
 ]
+dependencies = ["pycairo",]
 
 [project.urls]
 Homepage = "https://github.com/brokenarc/designtools"
@@ -37,9 +38,4 @@ Repository = "https://github.com/brokenarc/designtools.git"
 Changelog = "https://github.com/brokenarc/designtools/blob/main/README.md"
 
 [project.optional-dependencies]
-dev = ["black", "pytest"]
-
-[tool.black]
-line-length = 88
-target-version = ['py311']
-include = '\.pyi?$'
+dev = ["pytest"]

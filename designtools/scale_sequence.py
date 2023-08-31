@@ -15,23 +15,21 @@ NumericTable = tuple[Sequence[str], DataTable]
 """Type alias wrapping a group of table headers with the table data."""
 
 HELP_DESCRIPTION = dedent(
-    """Scales known numeric sequences around a given value and writes them as
-    columns in a CSV file with sequence names in the first row.""")
+    """Scales known numeric sequences around a given value and writes them as columns in a CSV file
+    with sequence names in the first row.""")
 
 HELP_EPILOG = "Known sequences: " + ", ".join(
-                  [f"{k} ({len(v)} values)" for (k, v) in SCALAR_SEQUENCES.items()]
-              )
+    [f"{k} ({len(v)} values)" for (k, v) in SCALAR_SEQUENCES.items()]
+)
 
 HELP_FILE = dedent(
-    """The name of the CSV file to generate. This file will be overwritten if
-    it already exists.""")
+    """The name of the CSV file to generate. This file will be overwritten if it already exists.""")
 
 HELP_VALUE = "The number to scale the sequences around."
 
 HELP_OFFSET = dedent(
-    """The index within the sequence that should equal the given value after
-    scaling. If offset is not given, the offset will be set to half the middle
-    of the shortest known sequence.""")
+    """The index within the sequence that should equal the given value after scaling. If offset is
+    not given, the offset will be set to half the middle of the shortest known sequence.""")
 
 
 def _get_scaled_columns(value: Numeric, offset: Optional[int] = None) -> NumericTable:

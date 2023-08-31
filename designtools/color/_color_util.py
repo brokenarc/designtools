@@ -6,11 +6,11 @@ import colorsys
 def normalize_hex_color(hex_color: str) -> str:
     """Normalizes a hexadecimal color code by doing the following:
 
-    - Remove the # prefix if present.
-    - Remove any trailing or leading whitespace.
-    - Convert to lowercase.
-    - Remove alpha channel if present.
-    - Expand 3-character codes to 6-character codes.
+        - Remove the # prefix if present.
+        - Remove any trailing or leading whitespace.
+        - Convert to lowercase.
+        - Remove alpha channel if present.
+        - Expand 3-character codes to 6-character codes.
 
     Args:
         hex_color: The hexadecimal color code to clean up.
@@ -40,13 +40,12 @@ def hex_to_rgb(hex_color: str) -> tuple[float, ...]:
     The method will attempt to normalize the hexadecimal value.
 
     Args:
-        hex_color: The hexadecimal RGB color to convert. The method will
-            normalize this value before creating the instance. See
-            :meth:`normalize_hex_color`
+        hex_color: The hexadecimal RGB color to convert. The method will normalize this value before
+        creating the instance. See :meth:`normalize_hex_color`
 
     Returns:
-        The (red, green, blue) values for the color with each value expressed
-        as a float from ``0`` to ``1``.
+        The (red, green, blue) values for the color with each value expressed as a float from ``0`` to
+        ``1``.
     """
     hex_safe = normalize_hex_color(hex_color)
     return (
@@ -57,8 +56,8 @@ def hex_to_rgb(hex_color: str) -> tuple[float, ...]:
 
 
 def rgb_to_hex(red: float, green: float, blue: float) -> str:
-    """Converts RGB values to a hexadecimal color value. Each component must be
-    a float from ``0`` to ``1``.
+    """Converts RGB values to a hexadecimal color value. Each component must be a float from ``0`` to
+    ``1``.
 
     Args:
         red: The red component.
@@ -74,17 +73,15 @@ def rgb_to_hex(red: float, green: float, blue: float) -> str:
 
 
 def hex_to_hsv(hex_code: str) -> tuple[float, ...]:
-    """Convenience method to create an HSV tuple from a hexadecimal RGB color
-    code.
+    """Convenience method to create an HSV tuple from a hexadecimal RGB color code.
 
     Args:
-        hex_code: The hexadecimal RGB color to convert. The method will
-            normalize this value before creating the instance. See
-            :meth:`normalize_hex_color`
+        hex_code: The hexadecimal RGB color to convert. The method will normalize this
+        value before creating the instance. See :meth:`normalize_hex_color`
 
     Returns:
-        The (hue, saturation, value) values for the color with each value
-        expressed as a float from ``0`` to ``1``.
+        The (hue, saturation, value) values for the color with each value expressed as a float from ``0`` to
+        ``1``.
     """
     return colorsys.rgb_to_hsv(*hex_to_rgb(hex_code))
 

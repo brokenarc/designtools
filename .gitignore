@@ -1,14 +1,16 @@
-## Python
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
 
-### Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-### C extensions
+# C extensions
 *.so
 
-### Distribution / packaging
+# Distribution / packaging
 .Python
 build/
 develop-eggs/
@@ -28,15 +30,15 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-### PyInstaller
+# PyInstaller
 *.manifest
 *.spec
 
-### Installer logs
+# Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
 
-### Unit test / coverage reports
+# Unit test / coverage reports
 htmlcov/
 .tox/
 .nox/
@@ -51,24 +53,24 @@ coverage.xml
 .pytest_cache/
 cover/
 
-### Translations
+# Translations
 *.mo
 *.pot
 
-### Sphinx documentation
+# Sphinx documentation
 docs/_build/
 
-### PyBuilder
+# PyBuilder
 .pybuilder/
 target/
 
-### PEP 582; used by e.g. github.com/David-OConnor/pyflow
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
-### Jupyter Notebook
+# Jupyter Notebook
 .ipynb_checkpoints
 
-### Environments
+# Environments
 .env
 .venv
 .env/
@@ -79,27 +81,91 @@ ENV/
 env.bak/
 venv.bak/
 
-### mkdocs documentation
+# mkdocs documentation
 /site
 
-### mypy
+# mypy
 .mypy_cache/
 .dmypy.json
 dmypy.json
 
-### Pyre type checker
+# Pyre type checker
 .pyre/
 
-### pytype static type analyzer
+# pytype static type analyzer
 .pytype/
 
-### Cython debug symbols
+# Cython debug symbols
 cython_debug/
 
-## PyCharm
-.idea/
+# -----------------------------------------------------------------------------
+# PyCharm
+# -----------------------------------------------------------------------------
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
 
-## VSCode
+# AWS User-specific
+.idea/**/aws.xml
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# File-based project format
+*.iws
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# SonarLint plugin
+.idea/sonarlint/
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+
+# -----------------------------------------------------------------------------
+# VSCode
+# -----------------------------------------------------------------------------
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -109,46 +175,50 @@ cython_debug/
 .history/
 *.vsix
 
-## Windows
-### Windows thumbnail cache files
+# -----------------------------------------------------------------------------
+# Windows
+# -----------------------------------------------------------------------------
+# Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 
-### Dump file
+# Dump file
 *.stackdump
 
-### Folder config file
+# Folder config file
 [Dd]esktop.ini
 
-### Recycle Bin used on file shares
+# Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-### Windows Installer files
+# Windows Installer files
 *.cab
 *.msi
 *.msix
 *.msm
 *.msp
 
-### Windows shortcuts
+# Windows shortcuts
 *.lnk
 
-## macOS
-### General
+# -----------------------------------------------------------------------------
+# macOS
+# -----------------------------------------------------------------------------
+# General
 .DS_Store
 .AppleDouble
 .LSOverride
 
-### Icon must end with two \r
+# Icon must end with two \r
 Icon
 
 
-### Thumbnails
+# Thumbnails
 ._*
 
-### Files that might appear in the root of a volume
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -157,14 +227,16 @@ Icon
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
-### Directories potentially created on remote AFP share
+# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
-## Linux
+# -----------------------------------------------------------------------------
+# Linux
+# -----------------------------------------------------------------------------
 *~
 .fuse_hidden*
 .directory

@@ -1,6 +1,8 @@
 """Utilities that don't fit anywhere else.
 """
 
+import secrets
+
 from collections.abc import Container
 from typing import TypeVar
 
@@ -24,7 +26,11 @@ class ContainerChain(Container[T]):
         return f"ContainerChain({chain})"
 
     def __contains__(self, o: object) -> bool:
-        """Returns ``True`` if the given object is contained by all the
-        containers in this chain.
+        """Returns ``True`` if the given object is contained by all the containers in this chain.
         """
         return all(o in c for c in self._containers)
+
+
+def id_token(length: int = 8):
+    """Returns a reasonably unique URL-safe token of a given length."""
+    return secrets.token_urlsafe(length)

@@ -1,12 +1,12 @@
 """Provides a range that can handle floating point values.
 """
 from collections.abc import Container
+
 from ._types import Numeric
 
 
 class Range(Container[Numeric]):
-    """Provides a simple range (which may be open- or close-ended) that can test
-    if a value is in the range.
+    """Provides a simple range (which may be open- or close-ended) that can test if a value is in the range.
 
     By default, the range is closed-ended.
 
@@ -20,8 +20,8 @@ class Range(Container[Numeric]):
     Args:
         min_value: The minimum value for this range.
         max_value: The maximum value for this range.
-        closed_ended: If ``True`` (default), the maximum value will be
-            included when testing if a number is present on the range.
+        closed_ended: If ``True`` (default), the maximum value will be included when
+        testing if a number is present on the range.
 
     Raises:
         ValueError: If ``min_value`` is not less than ``max_value``
@@ -54,9 +54,8 @@ class Range(Container[Numeric]):
 
     @property
     def closed_ended(self) -> bool:
-        """Whether the range is closed-ended, meaning the maximum value will be
-        included (``True``) or excluded (``False``) when testing if a number is
-        present on the range."""
+        """Whether the range is closed-ended, meaning the maximum value will be included (``True``) or
+        excluded (``False``) when testing if a number is present on the range."""
         return self._closed_ended
 
     def __contains__(self, value: Numeric) -> bool:

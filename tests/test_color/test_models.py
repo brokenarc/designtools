@@ -66,3 +66,28 @@ def test_color_data(params, expected):
     assert c.hex_code == expected["hex_code"]
     assert c.rgb == pytest.approx(expected["rgb"])
     assert c.hsv == pytest.approx(expected["hsv"])
+
+
+@pytest.mark.parametrize(
+    "base_color, xform, new_color",
+    [
+        (Color(hsv=(1, 1, 1)), (1, 0.5, 0.5), Color(hsv=(1, 0.5, 0.5))),
+        (Color(hsv=(0.5, 1, 1)), (1, 2, 2), Color(hsv=(0.5, 1, 1))),
+        (Color(hsv=(0.5, 1, 1)), (1, -2, -2), Color(hsv=(0.5, 0, 0))),
+        (Color(hsv=(0.5, 1, 1)), (2, 1, 1), Color(hsv=(1, 1, 1))),
+    ]
+)
+def test_hsv_transform(base_color, xform, new_color):
+    assert base_color.hsv_transform(*xform) == new_color
+
+
+@pytest.mark.parametrize(
+    "base_color, xform, new_color",
+    [
+        (Color(rgb=(1, 1, 1)), (0.5, 0.5, 0.5), Color(rgb=(0.5, 0.5, 0.5))),
+        (Color(rgb=(1, 1, 1)), (0, 1, 2), Color(rgb=(0, 1, 1))),
+        (Color(rgb=(0.5, 1, 1)), (1, -2, -2), Color(rgb=(0.5, 0, 0))),
+    ]
+)
+def test_rgb_transform(base_color, xform, new_color):
+    assert base_color.rgb_transform(*xform) == new_color

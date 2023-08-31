@@ -9,14 +9,11 @@ from ._models import Color
 class HsvCollector(Container[Color]):
     """Tests for membership based on one of a color's HSV components.
 
-    The class assumes unit-less component values from ``0`` to ``1`` when
-    testing for membership.
+    The class assumes unit-less component values from ``0`` to ``1`` when testing for membership.
 
     Args:
-        lower_bound: The lower hue boundary for this collector's range,
-            inclusive.
-        upper_bound: The upper hue boundary for this collector's range,
-            exclusive.
+        lower_bound: The lower hue boundary for this collector's range, inclusive.
+        upper_bound: The upper hue boundary for this collector's range, exclusive.
     """
 
     COMPONENTS = ("h", "s", "v")
@@ -38,9 +35,9 @@ class HsvCollector(Container[Color]):
         return cast(Color, color).hsv[self._component] in self._range
 
 
-def segment_hues(names: Sequence[str]) -> Mapping[str, Container[str]]:
-    """Generates a set of equally spaced hue collectors with the given names,
-    assigned in the order that the names are given.
+def segment_hues(names: Sequence[str]) -> Mapping[str, Container[Color]]:
+    """Generates a set of equally spaced hue collectors with the given names, assigned in the order that the
+    names are given.
 
     Args:
         names: The strings that will be used as keys in the resulting mapping.
@@ -56,6 +53,12 @@ def segment_hues(names: Sequence[str]) -> Mapping[str, Container[str]]:
 
 
 GRAYS = {
+    "00 grays": HsvCollector("s", 0, 0.15)
+}
+"""Collects shades of gray in a single group. Prefix this mapping to a collector mapping to group
+the neutrals separately."""
+
+SPLIT_GRAYS = {
     "00 dark grays": ContainerChain(
         HsvCollector("s", 0, 0.15), HsvCollector("v", 0, 0.5)
     ),
@@ -63,8 +66,19 @@ GRAYS = {
         HsvCollector("s", 0, 0.15), HsvCollector("v", 0, 1.1)
     ),
 }
-"""Collects shades of gray. Prefix this mapping to a collectors mapping to group
-the neutrals separately."""
+"""Collects shades of gray in two groups (dark & light). Prefix this mapping to a collector mapping
+to group the neutrals separately."""
+
+HUE_SIMPLE = segment_hues(
+    (
+        "01 red",
+        "02 yellow",
+        "03 green",
+        "04 cyan",
+        "05 blue",
+        "06 magenta"
+    )
+)
 
 HUES_BASIC = segment_hues(
     (
@@ -79,7 +93,7 @@ HUES_BASIC = segment_hues(
         "09 indigo",
         "10 violet",
         "11 purple",
-        "12 pink",
+        "12 pink"
     )
 )
 """Basic division of the hue circle into 12 equal segments."""
@@ -109,11 +123,10 @@ HUES_MARTIAN = segment_hues(
         "21 magenta",
         "22 pink",
         "23 prickly pear",
-        "24 red plum",
+        "24 red plum"
     )
 )
-"""Divides the hue circle into 24 equal segments named according to
-`Warren Mars' color wheel`_.
+"""Divides the hue circle into 24 equal segments named according to `Warren Mars' color wheel`_.
 
 .. _Warren Mars' color wheel:
     https://warrenmars.com/visual_art/theory/colour_wheel/colour_wheel.htm

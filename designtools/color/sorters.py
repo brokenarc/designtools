@@ -1,6 +1,5 @@
 """Provides sorting keys for Color instances."""
 
-from ._models import Color
 from ._color_util import get_luminance
 from ._models import Color
 

@@ -5,15 +5,14 @@ from ._color_util import hex_to_rgb, normalize_hex_color, rgb_to_hex
 
 
 class Color:
-    """Provides a mechanism for storing the pre-computed hexadecimal, RGB, and
-    HSV representations of a color in a single object.
+    """Provides a mechanism for storing the pre-computed hexadecimal, RGB, and HSV representations of a
+    color in a single object.
 
-    Argument precedence is ``hex_code``, ``rgb``, then ``hsv``. The first
-    non-None parameter present in that order will be used, and the rest will be
-    ignored.
+    Argument precedence is ``hex_code``, ``rgb``, then ``hsv``. The first non-None parameter present in that
+    order will be used, and the rest will be ignored.
 
-    This class supports comparison and sorting based on its hexadecimal color
-    code. Hashing is also delegated to the has of the hexadecimal code.
+    This class supports comparison and sorting based on its hexadecimal color code. Hashing is also
+    delegated to the has of the hexadecimal code.
 
     Args:
         hex_code: The hexadecimal color.
@@ -40,14 +39,14 @@ class Color:
             self._hsv = colorsys.rgb_to_hsv(*self._rgb)
         elif rgb:
             if (len(rgb) == 3) and all(0 <= c <= 1 for c in rgb):
-                self._rgb = rgb
+                self._rgb = tuple(rgb)
                 self._hex = rgb_to_hex(*self.rgb)
                 self._hsv = colorsys.rgb_to_hsv(*self._rgb)
             else:
                 raise ValueError("All 3 RGB components must be >= 0 and <= 1.")
         elif hsv:
             if (len(hsv) == 3) and all(0 <= c <= 1 for c in hsv):
-                self._hsv = hsv
+                self._hsv = tuple(hsv)
                 self._rgb = colorsys.hsv_to_rgb(*self._hsv)
                 self._hex = rgb_to_hex(*self.rgb)
             else:
@@ -70,6 +69,40 @@ class Color:
         """The HSV representation of the color."""
         return self._hsv
 
+    def hsv_transform(self, hue_x: float, sat_x: float, val_x: float) -> "Color":
+        """Creates a new color by applying a scaling transform to the HSV components of this color.
+
+        The result of each scale will always been between ``0.0`` and ``1.0``, inclusive.
+
+        Args:
+            hue_x: the factor to multiply the hue by
+            sat_x: the factor to multiply the saturation by
+            val_x: the factor to multiply the value by
+
+        Returns:
+            The new color.
+        """
+        pairs = zip(self.hsv, (hue_x, sat_x, val_x))
+
+        return Color(hsv=[min(max(base * scalar, 0), 1.0) for base, scalar in pairs])
+
+    def rgb_transform(self, red_x: float, green_x: float, blue_x: float) -> "Color":
+        """Creates a new color by applying a scaling transform to the RGB components of this color.
+
+        The result of each scale will always been between ``0.0`` and ``1.0``, inclusive.
+
+        Args:
+            red_x: the factor to multiply the red component by
+            green_x: the factor to multiply the green component by
+            blue_x: the factor to multiply the blue component by
+
+        Returns:
+            The new color.
+        """
+        pairs = zip(self.rgb, (red_x, green_x, blue_x))
+
+        return Color(rgb=[min(max(base * scalar, 0), 1.0) for base, scalar in pairs])
+
     def __repr__(self):
         return f"Color({self._hex})"
 
@@ -86,16 +119,16 @@ class Color:
         return self._hex > other._hex
 
 
-def hex_color(hex_code: str) -> "Color":
+def hex_color(hex_code: str) -> Color:
     """Convenience function to create Color from hex code."""
     return Color(hex_code=hex_code)
 
 
-def rgb_color(red: float, green: float, blue: float) -> "Color":
+def rgb_color(red: float, green: float, blue: float) -> Color:
     """Convenience function to create Color from RGB values."""
     return Color(rgb=(red, green, blue))
 
 
-def hsv_color(hue: float, saturation: float, value: float) -> "Color":
+def hsv_color(hue: float, saturation: float, value: float) -> Color:
     """Convenience function to create Color from HSV values."""
     return Color(hsv=(hue, saturation, value))
