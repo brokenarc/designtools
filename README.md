@@ -14,8 +14,8 @@ This is where I keep assorted Python scripts I write that support design tasks.
 
 ### extract_swatches
 
-Extracts hexadecimal color codes from a text file and generates an SVG with
-swatches of those colors.
+Extracts hexadecimal color codes from a text file and generates a PNG file and
+an SVG file with swatches of those colors.
 
 Several styles of swatches are provided:
 

@@ -1,13 +1,11 @@
-import xml.etree.ElementTree as ET
+import math
 from collections.abc import Sequence
 
+import cairo
+
 from designtools.color import Color
-from designtools.graphics.svg import Circle, Group, SVG
 from designtools.mathutil import Numeric
 from .swatch_renderer import SwatchRenderer
-
-STACK_ID = "stack-{0}"
-CIRCLE_ID = "circle-{0}"
 
 
 class ColorStack(SwatchRenderer):
@@ -20,29 +18,15 @@ class ColorStack(SwatchRenderer):
         self._y_inc = size + padding
         self._x_inc = self._radius
 
-    def _render_stack(self, index: int, color_group: Sequence[Color], cy: Numeric) -> Group:
-        stack = Group(id_=STACK_ID.format(index))
+    def _render_stack(self, color_group: Sequence[Color], cy: Numeric, ctx: cairo.Context) -> None:
         cx = self._padding + self._radius
 
         for color in color_group:
-            stack.append(
-                Circle(id_=CIRCLE_ID.format(color.hex_code), cx=cx, cy=cy, r=self._radius,
-                       stroke="none", fill=f"#{color.hex_code}")
-            )
+            ctx.set_source_rgb(color.rgb[0], color.rgb[1], color.rgb[2])
+            ctx.arc(cx, cy, self._radius, 0, 2 * math.pi)
+            ctx.fill()
+
             cx += self._radius
-
-        return stack
-
-    def _render_groups(self, color_groups: Sequence[Sequence[Color]]) -> Group:
-        cy = self._padding + self._radius
-        group = Group(id_="color-stacks")
-
-        for index, color_group in enumerate(color_groups):
-            if len(color_group) > 0:
-                group.append(self._render_stack(index, color_group, cy))
-                cy += self._y_inc
-
-        return group
 
     def compute_size(self, color_groups: Sequence[Sequence[Color]]) -> tuple[Numeric, Numeric]:
         row_count = len(color_groups)
@@ -53,9 +37,13 @@ class ColorStack(SwatchRenderer):
 
         return width, height
 
-    def render(self, color_groups=Sequence[Sequence[Color]]) -> ET.Element:
-        width, height = self.compute_size(color_groups)
-        svg = SVG(viewBox=f"0 0 {width} {height}", xmlns="http://www.w3.org/2000/svg")
-        svg.append(self._render_groups(color_groups))
+    def render(self, color_groups: Sequence[Sequence[Color]], ctx: cairo.Context) -> None:
+        ctx.save()
+        cy = self._padding + self._radius
 
-        return svg
+        for color_group in color_groups:
+            if len(color_group) > 0:
+                self._render_stack(color_group, cy, ctx)
+                cy += self._y_inc
+
+        ctx.restore()

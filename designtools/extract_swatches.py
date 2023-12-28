@@ -8,12 +8,13 @@ Notes
 - Transparency values are ignored.
 """
 import sys
-import xml.etree.ElementTree as ET
 from argparse import ArgumentParser
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from textwrap import dedent
 from typing import NamedTuple
+
+import cairo
 
 from designtools.color import Color, group_colors
 from designtools.color.collectors import GRAYS, HUES_BASIC, SPLIT_GRAYS
@@ -22,7 +23,7 @@ from designtools.graphics.extractors import colors_from_text
 from designtools.graphics.swatches import (BallGrid, CircleGrid, ColorStack, GradientBar,
                                            SquareGrid, SwatchRenderer, )
 
-OUTFILE = "{0}.{1}.svg"
+OUTFILE = "{0}.{1}"
 """Template for the output filename when no output file is specified."""
 
 
@@ -99,7 +100,7 @@ def _get_args():
     return parser.parse_args()
 
 
-def _make_swatches(colors: Sequence[Color], style: SwatchConfig) -> ET.Element:
+def _make_swatches(colors: Sequence[Color], style: SwatchConfig, ctx: cairo.Context) -> None:
     groups = group_colors(colors, style.collectors)
 
     # Sort each group and filter out any empty groups
@@ -109,21 +110,26 @@ def _make_swatches(colors: Sequence[Color], style: SwatchConfig) -> ET.Element:
         if len(groups[key]) > 0
     ]
 
-    return style.renderer.render(filtered)
+    style.renderer.render(filtered, ctx)
 
 
 def extract_swatches(in_file: str, out_file: str, style: SwatchConfig):
     colors = colors_from_text(in_file)
-    svg = _make_swatches(colors, style)
+
+    rs = cairo.RecordingSurface(cairo.CONTENT_COLOR, None)
+    ctx_rs = cairo.Context(rs)
+    _make_swatches(colors, style, ctx_rs)
+
+    x, y, width, height = rs.ink_extents()
+    svg = cairo.SVGSurface(out_file.format(".svg"), width, height)
+    ctx_svg = cairo.Context(svg)
+    ctx_svg.set_source_surface(rs, 0, 0)
+    ctx_svg.paint()
+    svg.write_to_png(out_file.format(".png"))
+    svg.finish()
+    rs.finish()
 
     print(MSG_STATUS.format(len(colors), in_file, out_file))
-
-    try:
-        with open(out_file, "x") as file:
-            file.writelines(ET.tostring(svg, encoding="unicode"))
-    except FileExistsError:
-        print(MSG_FILE_EXISTS.format(out_file))
-        sys.exit(1)
 
 
 def main():
@@ -134,7 +140,7 @@ def main():
         args.swatch_file
         if args.swatch_file
         else str(text_file.with_name(OUTFILE.format(text_file.stem, args.style)).absolute())
-    )
+    ) + "{0}"
 
     extract_swatches(str(text_file), swatch_file, style)
 

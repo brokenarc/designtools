@@ -1,11 +1,11 @@
 import math
-import xml.etree.ElementTree as ET
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
 from itertools import chain
 
+import cairo
+
 from designtools.color import Color
-from designtools.graphics.svg import Defs, Group, SVG
 from designtools.mathutil import Numeric
 from .swatch_renderer import SwatchRenderer
 
@@ -53,18 +53,11 @@ class GridBase(SwatchRenderer, ABC):
         return width, height
 
     @abstractmethod
-    def render_elements(self, colors: Sequence[Color]) -> tuple[Defs | None, Group]:
+    def render_elements(self, colors: Sequence[Color], ctx: cairo.Context) -> None:
         pass
 
-    def render(self, color_groups: Sequence[Sequence[Color]]) -> ET.Element:
-        width, height = self.compute_size(color_groups)
-        svg = SVG(viewBox=f"0 0 {width} {height}", xmlns="http://www.w3.org/2000/svg")
+    def render(self, color_groups: Sequence[Sequence[Color]], ctx: cairo.Context) -> None:
+        ctx.save()
         colors = tuple(chain.from_iterable(color_groups))
-        defs, group = self.render_elements(colors)
-
-        if defs is not None:
-            svg.append(defs)
-
-        svg.append(group)
-
-        return svg
+        self.render_elements(colors, ctx)
+        ctx.restore()
