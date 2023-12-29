@@ -9,7 +9,6 @@ from .swatch_renderer import SwatchRenderer
 
 
 class ColorStack(SwatchRenderer):
-    __slots__ = ("_size", "_radius", "_padding", "_y_inc", "_x_inc")
 
     def __init__(self, size: Numeric, padding: Numeric):
         self._size = size

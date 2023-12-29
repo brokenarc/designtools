@@ -7,7 +7,6 @@ Notes
 - Only hexadecimal color codes are supported
 - Transparency values are ignored.
 """
-import sys
 from argparse import ArgumentParser
 from collections.abc import Mapping, Sequence
 from pathlib import Path
@@ -100,32 +99,43 @@ def _get_args():
     return parser.parse_args()
 
 
-def _make_swatches(colors: Sequence[Color], style: SwatchConfig, ctx: cairo.Context) -> None:
-    groups = group_colors(colors, style.collectors)
+def _prep_colors(colors: Sequence[Color],
+                 collectors: Mapping[str, Sequence[Color]]) -> Sequence[Sequence[Color]]:
+    groups = group_colors(colors, collectors)
 
     # Sort each group and filter out any empty groups
-    filtered = [
+    return [
         sorted(groups[key], key=luminance_sort_key, reverse=True)
         for key in sorted(groups.keys())
         if len(groups[key]) > 0
     ]
 
-    style.renderer.render(filtered, ctx)
+
+def _render_swatches(colors: Sequence[Color], collectors: Mapping[str, Sequence[Color]],
+                     renderer: SwatchRenderer) -> cairo.RecordingSurface:
+    color_groups = _prep_colors(colors, collectors)
+
+    size = cairo.Rectangle(0, 0, *renderer.compute_size(color_groups))
+    surface = cairo.RecordingSurface(cairo.CONTENT_COLOR_ALPHA, size)
+    ctx = cairo.Context(surface)
+
+    renderer.render(color_groups, ctx)
+
+    return surface
 
 
-def extract_swatches(in_file: str, out_file: str, style: SwatchConfig):
+def _extract_swatches(in_file: str, out_file: str, style: SwatchConfig):
     colors = colors_from_text(in_file)
 
-    rs = cairo.RecordingSurface(cairo.CONTENT_COLOR, None)
-    ctx_rs = cairo.Context(rs)
-    _make_swatches(colors, style, ctx_rs)
+    rs = _render_swatches(colors, style.collectors, style.renderer)
+    _, _, width, height = rs.get_extents()
 
-    x, y, width, height = rs.ink_extents()
     svg = cairo.SVGSurface(out_file.format(".svg"), width, height)
-    ctx_svg = cairo.Context(svg)
-    ctx_svg.set_source_surface(rs, 0, 0)
-    ctx_svg.paint()
+    ctx = cairo.Context(svg)
+    ctx.set_source_surface(rs, 0, 0)
+    ctx.paint()
     svg.write_to_png(out_file.format(".png"))
+
     svg.finish()
     rs.finish()
 
@@ -137,12 +147,13 @@ def main():
     style = STYLES[args.style]
     text_file = Path(args.text_file).absolute()
     swatch_file = (
-        args.swatch_file
-        if args.swatch_file
-        else str(text_file.with_name(OUTFILE.format(text_file.stem, args.style)).absolute())
-    ) + "{0}"
+                      args.swatch_file
+                      if args.swatch_file
+                      else str(text_file.with_name(
+                          OUTFILE.format(text_file.stem, args.style)).absolute())
+                  ) + "{0}"
 
-    extract_swatches(str(text_file), swatch_file, style)
+    _extract_swatches(str(text_file), swatch_file, style)
 
 
 if __name__ == "__main__":

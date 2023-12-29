@@ -164,8 +164,10 @@
 <stop offset="0.8" stop-color="rgb(85.882353%, 43.921569%, 57.647059%)" stop-opacity="1"/>
 <stop offset="1" stop-color="rgb(86.27451%, 7.843137%, 23.529412%)" stop-opacity="1"/>
 </linearGradient>
-<g id="source-7">
-<rect x="-84.48" y="-183.04" width="552.96" height="1198.08" fill="rgb(0%, 0%, 0%)" fill-opacity="1"/>
+<clipPath id="clip-0">
+<rect x="0" y="0" width="384" height="832"/>
+</clipPath>
+<g id="source-5" clip-path="url(#clip-0)">
 <path fill-rule="nonzero" fill="url(#linear-pattern-0)" d="M 0 0 L 384 0 L 384 64 L 0 64 Z M 0 0 "/>
 <path fill-rule="nonzero" fill="url(#linear-pattern-1)" d="M 0 64 L 384 64 L 384 128 L 0 128 Z M 0 64 "/>
 <path fill-rule="nonzero" fill="url(#linear-pattern-2)" d="M 0 128 L 384 128 L 384 192 L 0 192 Z M 0 128 "/>
@@ -181,5 +183,5 @@
 <path fill-rule="nonzero" fill="url(#linear-pattern-12)" d="M 0 768 L 384 768 L 384 832 L 0 832 Z M 0 768 "/>
 </g>
 </defs>
-<use xlink:href="#source-7"/>
+<use xlink:href="#source-5"/>
 </svg>

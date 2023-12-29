@@ -2,13 +2,13 @@
 
 This is where I keep assorted Python scripts I write that support design tasks.
 
-- [Design Tools](#design-tools)
-    - [Scripts](#scripts)
-        - [extract\_swatches](#extract_swatches)
-        - [scale\_sequence](#scale_sequence)
-        - [make\_sequence](#make_sequence)
-    - [Modules](#modules)
-    - [Dependencies](#dependencies)
+- [Scripts](#scripts)
+    - [extract\_swatches](#extract_swatches)
+    - [scale\_sequence](#scale_sequence)
+    - [make\_sequence](#make_sequence)
+- [Modules](#modules)
+- [Dependencies](#dependencies)
+- [References](#references)
 
 ## Scripts
 
@@ -122,3 +122,8 @@ None.
 ### Development<!-- omit from toc -->
 
 - [pytest](https://pytest.org/) for tests
+
+## References
+
+- [Martian Colour Wheel](https://warrenmars.com/visual_art/theory/colour_wheel/colour_wheel.htm)
+- [The incredibly challenging task of sorting colours](https://www.alanzucconi.com/2015/09/30/colour-sorting/)

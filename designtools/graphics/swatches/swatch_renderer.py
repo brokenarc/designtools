@@ -8,6 +8,8 @@ from designtools.mathutil import Numeric
 
 
 class SwatchRenderer(ABC):
+    """General interface for swatch renderer implementations.
+    """
 
     @abstractmethod
     def compute_size(self, color_groups: Sequence[Sequence[Color]]) -> tuple[Numeric, Numeric]:

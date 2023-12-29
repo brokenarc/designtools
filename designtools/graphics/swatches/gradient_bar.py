@@ -8,10 +8,9 @@ from .swatch_renderer import SwatchRenderer
 
 
 class GradientBar(SwatchRenderer):
-    __slots__ = ("_swatch_width", "_swatch_height")
 
     @staticmethod
-    def _compute_stops(colors: Sequence[Color], gradient: cairo.Gradient) -> None:
+    def _add_color_stops(colors: Sequence[Color], gradient: cairo.Gradient) -> None:
         for index, color in enumerate(colors):
             offset = (index + 1) / len(colors)
             r, g, b = color.rgb
@@ -29,7 +28,7 @@ class GradientBar(SwatchRenderer):
         height = self._swatch_height
 
         gradient = cairo.LinearGradient(x, y, x + width, y)
-        GradientBar._compute_stops(colors, gradient)
+        GradientBar._add_color_stops(colors, gradient)
 
         ctx.set_source(gradient)
         ctx.rectangle(x, y, width, height)
